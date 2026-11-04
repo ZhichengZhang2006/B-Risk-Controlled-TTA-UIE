@@ -1,0 +1,71 @@
+# Experiment configuration -- every number that matters is pinned here.
+# Streams are the three locked transfers of spec §5.1.
+
+paths:
+  data_root: /home/user/UnderWaterDataset
+  weights_root: /home/user/MambaCue/output/L1+SSIM+Prep+Lab+grad+Angle/four/color-illumination-contrast/both
+  out_root: /home/user/BRCTTA/runs
+  # materialised uint8 stream caches (memoisation of the 256x256 protocol
+  # tensor; verified bitwise against the slow path by cache.verify_against_loader)
+  cache_root: /home/user/BRCTTA/runs/_cache
+
+eval:
+  size: 256
+  # whole-image resize, no crop, no pad, one resampler for everyone
+  resampling: pil_bicubic_reducing_gap3
+
+# dev split = the SOURCE domain's own val split (labels are allowed there,
+# they belong to the source domain and are never target-domain references).
+# test split = the locked target test split, opened only by the final scorer.
+splits:
+  LSUI:
+    train: LSUI/train
+    dev: LSUI/val
+    test: LSUI/test
+  UIEB:
+    train: UIEB/train
+    dev: UIEB/val
+    test: UIEB/test
+  UFO:
+    train: UFO/train
+    dev: UFO/val
+    test: UFO/test
+  # auxiliary independent dev domain (disclosed separately; all fair comparisons
+  # may use it).  Never used as a locked target test split.
+  EUVPd:
+    train: EUVP-d/train
+    dev: EUVP-d/val
+    test: EUVP-d/test
+
+streams:
+  - name: LSUI2UIEB
+    source: LSUI
+    target: UIEB
+    source_ckpt: LSUI/best_model.pth
+    seed: 0
+  - name: UIEB2LSUI
+    source: UIEB
+    target: LSUI
+    source_ckpt: UIEB/best_model.pth
+    seed: 0
+  - name: LSUI2UFO
+    source: LSUI
+    target: UFO
+    source_ckpt: LSUI/best_model.pth
+    seed: 0
+
+adapter:
+  hidden: 32
+  steps: 1
+  lr: 0.001
+  grad_clip: 1.0
+  consistency: true
+  memory: 0
+
+risk:
+  target_far: 0.10       # max false-accept rate on dev
+  delta_quantile: 0.5    # delta fixed at the dev median of d_local
+  l2: 0.001
+  iters: 500
+
+seeds: [0]

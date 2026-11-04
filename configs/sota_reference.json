@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "purpose": "Same-protocol SOTA references used by scripts/08_acceptance.py (§11).",
+    "tolerance": 0.05,
+    "tolerance_definition": "g_m = (ref_m - ours_m) / ref_m must be <= 0.05 for PSNR and SSIM. PSNR is compared in dB, i.e. a 30 dB reference passes down to 28.5 dB. MSE is reported per image but is NEVER an acceptance criterion (§11 forbids substituting it).",
+    "resolution_note": "All references below are 256x256 whole-image evaluations on the same target split (or the closest published split, flagged in note). Numbers taken from docs/sota_registry.csv row ids.",
+    "status": "SUPERVISED_REFERENCE",
+    "warning": "Every entry is a FULLY SUPERVISED in-domain model trained on the target domain. Our method is source-only (no target labels at all). The gate is therefore deliberately strict: it asks whether an unsupervised adapter can come within 5% of a target-supervised model. Failing it is a meaningful research result and must be reported as such, not reframed.",
+    "fallback_when_missing": "If a stream has no ref for a metric, scripts/08_acceptance.py marks the gate not_applicable rather than passing it."
+  },
+  "LSUI2UIEB": {
+    "psnr": 25.11,
+    "ssim": 0.933,
+    "ref_id": "S09",
+    "ref_method": "UniUIR (UIEB-T 800 paired -> T90) at 256x256",
+    "note": "Strongest published target-supervised number on the UIEB paired test protocol. UIEB-R90 in our spec is the 90-image held-out paired subset; S09 uses T90, the same 90-image protocol family."
+  },
+  "UIEB2LSUI": {
+    "psnr": 28.42,
+    "ssim": 0.926,
+    "ref_id": "S10",
+    "ref_method": "UniUIR (LSUI-T 3879 paired -> LSUI-400) at 256x256",
+    "note": "Strongest published target-supervised number on LSUI-400. Our LSUI test split is 428 images from the same release; the 28-image difference is disclosed rather than hidden."
+  },
+  "LSUI2UFO": {
+    "psnr": 28.284,
+    "ssim": 0.8668,
+    "ref_id": "S03",
+    "ref_method": "WWE-UIE (UFO-120 8:1:1) at 256x256",
+    "note": "UFO-120 pairs are 320x240 input vs 640x480 GT (a 2x SR task). §5.1's whole-image 256x256 resize is applied to BOTH members, which removes the SR component; this is recorded in the data manifest and no SR claim will be made."
+  }
+}
