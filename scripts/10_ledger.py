@@ -73,7 +73,8 @@ def collect(cfg):
                 primary_value=round(float(m.get("psnr_prequential", float("nan"))), 4),
                 secondary_metric="ssim_prequential",
                 secondary_value=round(float(m.get("ssim_prequential", float("nan"))), 5),
-                seconds=round(float(d.get("wall_seconds", 0) or 0), 1),
+                seconds=round(float(m.get("wall_seconds",
+                                           d.get("wall_seconds", 0)) or 0), 1),
                 path=os.path.relpath(path, out_root),
                 note=f"theta0={d.get('theta0', '')}; accept={m.get('accept_rate', '')}; "
                      f"reset={m.get('reset_rate', '')}; "
