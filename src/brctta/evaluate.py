@@ -6,18 +6,35 @@ comparison table cannot drift between methods.
 Terminology used below
 ----------------------
 prequential : the metric of the output produced *before* the update (the number
-              that matters under the causal protocol).
-final       : the metric of the output produced after committing/keeping -- used
-              only for negative-transfer accounting.
-dPSNR       : psnr_post - psnr_pre for the same image.  Negative = the update
-              hurt this image.
-NAR_0       : fraction of images whose update reduced PSNR (negative-transfer
-              ratio).  NAR_0.1dB / NAR_0.5dB are the margin-qualified variants.
+              that matters under the causal protocol).  This is the main table.
+realised    : ``psnr_post - psnr_pre``.  The output produced after the decision
+              minus the one produced before it, i.e. what this step actually did
+              to the stream.  A keep/reset leaves the state alone, so this is 0.
+candidate   : ``psnr_cand - psnr_pre``.  The quality of the *proposed* state
+              theta_+, whether or not it was committed.  This is the utility the
+              gate is supposed to predict; measuring it after the decision (the
+              pre-fix behaviour) made every rejected update look harmless because
+              the rejected state was never evaluated.
+
+Why both views are reported
+---------------------------
+A gate can look excellent on the realised view by refusing everything: every
+step then has ``dPSNR == 0``, so NAR_0, worst-10 % and regret all read as zero.
+That is not risk control, it is inaction.  The candidate view exposes the pool
+the gate faced (its true harm rate) and the accept/reject rates expose how much
+of the available benefit it actually took.  §9.2's negative-transfer numbers are
+therefore reported on the realised view (what the stream experienced) *and* on
+the candidate view (what the decision was worth), never mixed.
+
+Legacy records (written before the candidate metrics existed) lack
+``psnr_cand``; they are scored with the post values and the summary carries
+``candidate_labels_legacy: true`` so a downstream table cannot silently treat
+them as candidate measurements.
 """
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Sequence
 
 import numpy as np
 
@@ -35,8 +52,21 @@ def summarize(records: Sequence, method: str = "ours") -> Dict:
     mse_pre = np.array([r.mse_pre for r in records], dtype=np.float64)
     mse_post = np.array([r.mse_post for r in records], dtype=np.float64)
 
+    cand_psnr = np.array([getattr(r, "psnr_cand", np.nan) for r in records], dtype=np.float64)
+    cand_ssim = np.array([getattr(r, "ssim_cand", np.nan) for r in records], dtype=np.float64)
+    cand_mse = np.array([getattr(r, "mse_cand", np.nan) for r in records], dtype=np.float64)
+    legacy = bool(np.isfinite(cand_psnr).sum() < len(records))
+    if legacy:  # score old logs on the realised view, flagged as such
+        cand_psnr = np.where(np.isfinite(cand_psnr), cand_psnr, psnr_post)
+        cand_ssim = np.where(np.isfinite(cand_ssim), cand_ssim, ssim_post)
+        cand_mse = np.where(np.isfinite(cand_mse), cand_mse, mse_post)
+
+    # realised view: what the stream actually experienced
     d_psnr = psnr_post - psnr_pre
     d_ssim = ssim_post - ssim_pre
+    # candidate view: what the proposed update was worth
+    dc_psnr = cand_psnr - psnr_pre
+    dc_ssim = cand_ssim - ssim_pre
 
     actions = np.array([r.action for r in records])
     n = len(records)
@@ -45,24 +75,25 @@ def summarize(records: Sequence, method: str = "ours") -> Dict:
     n_keep = n - n_accept - n_reset
 
     accepted = actions == "accept"
-    hurt = d_psnr < 0
-    would_hurt = np.array([bool(r.harmful) for r in records])
+    cand_hurt = dc_psnr < 0
+    cand_beneficial = ~cand_hurt
 
-    false_accept = float((accepted & hurt).sum() / max(hurt.sum(), 1))
-    harmful_accept_ratio = float((accepted & would_hurt).sum() / max(accepted.sum(), 1))
-    beneficial = ~hurt
-    frr = float(((~accepted) & beneficial).sum() / max(beneficial.sum(), 1))
+    false_accept = float((accepted & cand_hurt).sum() / max(int(cand_hurt.sum()), 1))
+    harmful_accept_ratio = float((accepted & cand_hurt).sum() / max(n_accept, 1))
+    frr = float(((~accepted) & cand_beneficial).sum() / max(int(cand_beneficial.sum()), 1))
 
-    oracle_gain = float(np.clip(d_psnr, 0, None).sum())
-    realised_gain = float(np.where(accepted, d_psnr, 0.0).sum())
+    oracle_gain = float(np.clip(dc_psnr, 0, None).sum())
+    realised_gain = float(np.where(accepted, dc_psnr, 0.0).sum())
     regret = oracle_gain - realised_gain
 
     k = max(1, int(round(n * 0.10)))
-    worst = np.argsort(d_psnr)[:k]
+    worst_real = np.argsort(d_psnr)[:k]
+    worst_cand = np.argsort(dc_psnr)[:k]
 
     return {
         "method": method,
         "n": n,
+        "candidate_labels_legacy": legacy,
         # --- main table (prequential) ---
         "psnr_prequential": float(psnr_pre.mean()),
         "ssim_prequential": float(ssim_pre.mean()),
@@ -73,7 +104,7 @@ def summarize(records: Sequence, method: str = "ours") -> Dict:
         "psnr_final": float(psnr_post.mean()),
         "ssim_final": float(ssim_post.mean()),
         "mse_final": float(mse_post.mean()),
-        # --- negative transfer (§9.2) ---
+        # --- negative transfer, realised (§9.2) ---
         "dPSNR_mean": float(d_psnr.mean()),
         "dPSNR_median": float(np.median(d_psnr)),
         "dSSIM_mean": float(d_ssim.mean()),
@@ -81,7 +112,13 @@ def summarize(records: Sequence, method: str = "ours") -> Dict:
         "NAR_0": float((d_psnr < 0).mean()),
         "NAR_0.1dB": float((d_psnr < -0.1).mean()),
         "NAR_0.5dB": float((d_psnr < -0.5).mean()),
-        "worst10_dPSNR": float(d_psnr[worst].mean()),
+        "worst10_dPSNR": float(d_psnr[worst_real].mean()),
+        # --- candidate pool (what the decision was worth) ---
+        "dPSNR_cand_mean": float(dc_psnr.mean()),
+        "dPSNR_cand_median": float(np.median(dc_psnr)),
+        "NAR_0_cand": float((dc_psnr < 0).mean()),
+        "worst10_dPSNR_cand": float(dc_psnr[worst_cand].mean()),
+        # --- action statistics ---
         "accept_rate": n_accept / n,
         "keep_rate": n_keep / n,
         "reset_rate": n_reset / n,
@@ -95,8 +132,8 @@ def summarize(records: Sequence, method: str = "ours") -> Dict:
 
 
 METRIC_KEYS_FOR_TABLE: List[str] = [
-    "psnr_prequential", "ssim_prequential", "psnr_final", "ssim_final",
-    "dPSNR_mean", "NAR_0", "worst10_dPSNR", "accept_rate", "false_accept_rate",
+    "psnr_prequential", "ssim_prequential", "dPSNR_mean", "dPSNR_cand_mean",
+    "NAR_0", "NAR_0_cand", "worst10_dPSNR", "accept_rate", "false_accept_rate",
     "benefit_retention",
 ]
 

@@ -1,0 +1,290 @@
+{
+  "data_root": "/home/user/UnderWaterDataset",
+  "eval_size": 256,
+  "splits": {
+    "LSUI/train": {
+      "split": "LSUI/train",
+      "path": "/home/user/UnderWaterDataset/LSUI/train",
+      "num_pairs": 3423,
+      "input_size_histogram": {
+        "320x240": 1391,
+        "640x360": 746,
+        "400x300": 607,
+        "256x256": 384,
+        "720x405": 108,
+        "1280x1024": 79
+      },
+      "gt_size_histogram": {
+        "320x240": 1391,
+        "640x360": 746,
+        "400x300": 607,
+        "256x256": 384,
+        "720x405": 108,
+        "1280x1024": 79
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "LSUI/train",
+        "source_dataset": "LSUI",
+        "target_split": "LSUI/train",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "4adb7069516d6244"
+    },
+    "LSUI/dev": {
+      "split": "LSUI/dev",
+      "path": "/home/user/UnderWaterDataset/LSUI/val",
+      "num_pairs": 428,
+      "input_size_histogram": {
+        "320x240": 158,
+        "640x360": 96,
+        "400x300": 88,
+        "256x256": 53,
+        "720x405": 16,
+        "1280x1024": 9
+      },
+      "gt_size_histogram": {
+        "320x240": 158,
+        "640x360": 96,
+        "400x300": 88,
+        "256x256": 53,
+        "720x405": 16,
+        "1280x1024": 9
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "LSUI/dev",
+        "source_dataset": "LSUI",
+        "target_split": "LSUI/dev",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "5480b1249daf71c8"
+    },
+    "LSUI/test": {
+      "split": "LSUI/test",
+      "path": "/home/user/UnderWaterDataset/LSUI/test",
+      "num_pairs": 428,
+      "input_size_histogram": {
+        "320x240": 151,
+        "640x360": 101,
+        "400x300": 78,
+        "256x256": 61,
+        "720x405": 13,
+        "1280x1024": 12
+      },
+      "gt_size_histogram": {
+        "320x240": 151,
+        "640x360": 101,
+        "400x300": 78,
+        "256x256": 61,
+        "720x405": 13,
+        "1280x1024": 12
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "LSUI/test",
+        "source_dataset": "LSUI",
+        "target_split": "LSUI/test",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "63f480008c759775"
+    },
+    "UIEB/train": {
+      "split": "UIEB/train",
+      "path": "/home/user/UnderWaterDataset/UIEB/train",
+      "num_pairs": 712,
+      "input_size_histogram": {
+        "640x480": 134,
+        "1280x720": 81,
+        "500x375": 49,
+        "500x333": 35,
+        "1800x1295": 20,
+        "1800x1350": 14
+      },
+      "gt_size_histogram": {
+        "640x480": 134,
+        "1280x720": 81,
+        "500x375": 49,
+        "500x333": 35,
+        "1800x1295": 20,
+        "1800x1350": 14
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "UIEB/train",
+        "source_dataset": "UIEB",
+        "target_split": "UIEB/train",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "cea23d5acfcd51a7"
+    },
+    "UIEB/dev": {
+      "split": "UIEB/dev",
+      "path": "/home/user/UnderWaterDataset/UIEB/val",
+      "num_pairs": 89,
+      "input_size_histogram": {
+        "640x480": 17,
+        "1280x720": 12,
+        "500x375": 6,
+        "275x183": 3,
+        "828x621": 3,
+        "640x360": 2
+      },
+      "gt_size_histogram": {
+        "640x480": 17,
+        "1280x720": 12,
+        "500x375": 6,
+        "275x183": 3,
+        "828x621": 3,
+        "640x360": 2
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "UIEB/dev",
+        "source_dataset": "UIEB",
+        "target_split": "UIEB/dev",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "4d0692cfea0d477c"
+    },
+    "UIEB/test": {
+      "split": "UIEB/test",
+      "path": "/home/user/UnderWaterDataset/UIEB/test",
+      "num_pairs": 89,
+      "input_size_histogram": {
+        "1280x720": 12,
+        "640x480": 12,
+        "500x375": 7,
+        "500x333": 4,
+        "259x194": 3,
+        "828x415": 3
+      },
+      "gt_size_histogram": {
+        "1280x720": 12,
+        "640x480": 12,
+        "500x375": 7,
+        "500x333": 4,
+        "259x194": 3,
+        "828x415": 3
+      },
+      "size_mismatch_pairs": 0,
+      "sr_pair_fraction": 0.0,
+      "stream_spec": {
+        "name": "UIEB/test",
+        "source_dataset": "UIEB",
+        "target_split": "UIEB/test",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "6837ea168f4e2ea3"
+    },
+    "UFO/train": {
+      "split": "UFO/train",
+      "path": "/home/user/UnderWaterDataset/UFO/train",
+      "num_pairs": 1200,
+      "input_size_histogram": {
+        "320x240": 1200
+      },
+      "gt_size_histogram": {
+        "640x480": 1200
+      },
+      "size_mismatch_pairs": 1200,
+      "sr_pair_fraction": 1.0,
+      "stream_spec": {
+        "name": "UFO/train",
+        "source_dataset": "UFO",
+        "target_split": "UFO/train",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "dbe4e09b19a6607a"
+    },
+    "UFO/dev": {
+      "split": "UFO/dev",
+      "path": "/home/user/UnderWaterDataset/UFO/val",
+      "num_pairs": 300,
+      "input_size_histogram": {
+        "320x240": 300
+      },
+      "gt_size_histogram": {
+        "640x480": 300
+      },
+      "size_mismatch_pairs": 300,
+      "sr_pair_fraction": 1.0,
+      "stream_spec": {
+        "name": "UFO/dev",
+        "source_dataset": "UFO",
+        "target_split": "UFO/dev",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "8ccbaee41095dd2b"
+    },
+    "UFO/test": {
+      "split": "UFO/test",
+      "path": "/home/user/UnderWaterDataset/UFO/test",
+      "num_pairs": 120,
+      "input_size_histogram": {
+        "320x240": 120
+      },
+      "gt_size_histogram": {
+        "640x480": 120
+      },
+      "size_mismatch_pairs": 120,
+      "sr_pair_fraction": 1.0,
+      "stream_spec": {
+        "name": "UFO/test",
+        "source_dataset": "UFO",
+        "target_split": "UFO/test",
+        "seed": 0,
+        "order": "shuffle",
+        "eval_size": 256
+      },
+      "stream_digest": "e9a2a1b04133c9a8"
+    }
+  },
+  "streams": {
+    "LSUI2UIEB": {
+      "source": "LSUI",
+      "target": "UIEB",
+      "target_split": "UIEB/test",
+      "target_test_images": 89,
+      "seed": 0,
+      "source_ckpt": "LSUI/best_model.pth"
+    },
+    "UIEB2LSUI": {
+      "source": "UIEB",
+      "target": "LSUI",
+      "target_split": "LSUI/test",
+      "target_test_images": 428,
+      "seed": 0,
+      "source_ckpt": "UIEB/best_model.pth"
+    },
+    "LSUI2UFO": {
+      "source": "LSUI",
+      "target": "UFO",
+      "target_split": "UFO/test",
+      "target_test_images": 120,
+      "seed": 0,
+      "source_ckpt": "LSUI/best_model.pth"
+    }
+  }
+}

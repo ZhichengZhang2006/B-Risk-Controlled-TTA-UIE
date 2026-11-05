@@ -49,24 +49,35 @@ def collect(cfg):
     rows = []
 
     # --- online evaluation results (the main table) -------------------------
-    for path in sorted(glob.glob(os.path.join(out_root, "online_*", "online_results.json"))):
+    # 05_online_eval writes runs/<STREAM>/online_results.json, and the metric keys
+    # are psnr_prequential / ssim_prequential while the adapter settings live in
+    # "adapter_cfg" and the runtime in "wall_seconds".  The previous version
+    # globbed runs/online_* and read "psnr"/"ssim"/"adapt"/"seconds", so every
+    # online row in the ledger was 0/blank even though the runs existed.
+    for path in sorted(glob.glob(os.path.join(out_root, "*", "online_results.json"))):
         d = _load(path)
         if not d:
             continue
         run = os.path.basename(os.path.dirname(path))
+        if run.endswith("_episodic"):
+            continue
         split = "test" if "test" in str(d.get("split", "test")) else "dev"
+        acfg = d.get("adapter_cfg") or d.get("adapt") or {}
         for m in d.get("methods", []):
             rows.append(_row(
                 run_id=f"{run}:{m.get('method')}", kind="online_eval",
-                stream=d.get("stream", ""), backbone=d.get("backbone", "mambucue"),
+                stream=d.get("stream", ""), backbone=d.get("backbone", "mambacue"),
                 dev_or_test=split, n=m.get("n", ""),
-                steps=d.get("adapt", {}).get("steps", ""), lr=d.get("adapt", {}).get("lr", ""),
-                primary_metric="psnr", primary_value=round(float(m.get("psnr", 0)), 4),
-                secondary_metric="ssim", secondary_value=round(float(m.get("ssim", 0)), 5),
-                seconds=round(float(m.get("seconds", 0) or 0), 1),
+                steps=acfg.get("steps", ""), lr=acfg.get("lr", ""),
+                primary_metric="psnr_prequential",
+                primary_value=round(float(m.get("psnr_prequential", float("nan"))), 4),
+                secondary_metric="ssim_prequential",
+                secondary_value=round(float(m.get("ssim_prequential", float("nan"))), 5),
+                seconds=round(float(d.get("wall_seconds", 0) or 0), 1),
                 path=os.path.relpath(path, out_root),
                 note=f"theta0={d.get('theta0', '')}; accept={m.get('accept_rate', '')}; "
-                     f"reset={m.get('reset_rate', '')}"))
+                     f"reset={m.get('reset_rate', '')}; "
+                     f"NAR0_cand={m.get('NAR_0_cand', '')}"))
 
     # --- adaptation selection (dev) ----------------------------------------
     for path in sorted(glob.glob(os.path.join(out_root, "selection_*", "adapt_selection.json"))):
@@ -77,7 +88,7 @@ def collect(cfg):
         for r in d.get("rows", []):
             rows.append(_row(
                 run_id=f"{run}:{r.get('cell')}", kind="selection_cell",
-                stream=d.get("stream", ""), backbone=d.get("backbone", "mambucue"),
+                stream=d.get("stream", ""), backbone=d.get("backbone", "mambacue"),
                 dev_or_test="dev", n=d.get("n", ""),
                 steps=r.get("steps", ""), lr=r.get("lr", ""),
                 primary_metric="bound_vs_frozen_dB",
@@ -102,7 +113,7 @@ def collect(cfg):
                         continue
                     rows.append(_row(
                         run_id=f"{run}:{name}", kind=kind, stream=d.get("stream", ""),
-                        backbone=d.get("backbone", "mambucue"), dev_or_test="dev",
+                        backbone=d.get("backbone", "mambacue"), dev_or_test="dev",
                         n=a.get("n", d.get("n", "")),
                         primary_metric="dPSNR",
                         primary_value=round(float(a.get("dPSNR", a.get("d_psnr", 0)) or 0), 4),
@@ -120,7 +131,7 @@ def collect(cfg):
         for name, a in (d.get("arms") or {}).items():
             rows.append(_row(
                 run_id=f"{run}:{name}", kind="affine_redegrade", stream=d.get("stream", ""),
-                backbone=d.get("backbone", "mambucue"), dev_or_test="dev", n=d.get("n", ""),
+                backbone=d.get("backbone", "mambacue"), dev_or_test="dev", n=d.get("n", ""),
                 primary_metric="dPSNR", primary_value=round(float(a.get("dPSNR", 0)), 4),
                 secondary_metric="frac_pos", secondary_value=round(float(a.get("frac_pos", 0)), 4),
                 path=os.path.relpath(path, out_root), note=""))
@@ -150,7 +161,7 @@ def collect(cfg):
             name = a.get("split", "")
             rows.append(_row(
                 run_id=f"{run}:{name}", kind="theta0", stream=name,
-                backbone=d.get("backbone", "mambucue"),
+                backbone=d.get("backbone", "mambacue"),
                 dev_or_test=("test" if name.endswith("/test") else "dev"),
                 n=(a.get("frozen") or {}).get("n", ""),
                 primary_metric="dPSNR", primary_value=round(float(a.get("delta_psnr", 0)), 4),
@@ -165,7 +176,7 @@ def collect(cfg):
             continue
         rows.append(_row(
             run_id=os.path.basename(os.path.dirname(path)), kind="adapter_pretrain",
-            stream=d.get("source", ""), backbone=d.get("backbone", "mambucue"),
+            stream=d.get("source", ""), backbone=d.get("backbone", "mambacue"),
             dev_or_test="source_train", n=d.get("pairs", ""), steps=d.get("epochs", ""),
             lr=d.get("lr", ""), primary_metric="final_loss",
             primary_value=round(float(d.get("final_loss", 0) or 0), 6),

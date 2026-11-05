@@ -69,7 +69,7 @@ def main() -> int:
         steps=args.steps or cfg["adapter"]["steps"],
         lr=args.lr or cfg["adapter"]["lr"],
         consistency=cfg["adapter"]["consistency"], memory=0,
-        reset_every=args.episode_len,
+        reset_every=args.episode_len, seed=int(stream_cfg["seed"]),
     )
 
     out = run_dir(cfg, f"{args.stream}_episodic" + (f"_{args.tag}" if args.tag else ""))

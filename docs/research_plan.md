@@ -68,10 +68,25 @@ upper bound**, never as a method.
 ### 3.3 Where δ and the threshold come from
 
 * `δ` (risk event threshold) = median of `d_local` on the **dev** split.
-* Controller threshold = smallest cut whose false-accept rate ≤ 0.10 on the **dev**
-  calibration block (chronological 70/30 split of the dev episodes).
+* Controller features and threshold are fitted **inside 5-fold cross-fitting on the
+  dev episodes** (`scripts/03_risk_train.py`): the feature count `k ∈ {3,5,19}` is
+  chosen by out-of-fold AUROC, selection of the top-`k` channels happens *within
+  each training fold*, and the accept threshold is the cut on the concatenated
+  out-of-fold scores whose false-accept rate is ≤ 0.10 with maximal retained
+  benefit. Cross-fitting replaced a single chronological 70/30 block because that
+  block contained 27 rows: the threshold was estimated from too few harmful
+  examples and collapsed to "accept almost nothing" (observed 1.1% accept rate on
+  the primary transfer).
+* **Declared abstain rule.** If the best out-of-fold AUROC is below 0.5, the dev
+  evidence cannot certify any update: the controller sets `τ = −∞`, records
+  `mode="abstain_no_signal"`, and accepts nothing. This is a pre-registered
+  outcome, not a post-hoc rescue — `θ_t` then follows the source adapter and the
+  stream is reported as "no deployable gate on this transfer".
 * The adapter budget (steps × lr) is selected on **dev only**, by maximising the
   oracle ceiling among cells with at least 0.05 dB of gateable headroom.
+* The RNG-seeding repair changes the *realisation* of the consistency jitter, not
+  its distribution; the dev budget selection was therefore not repeated (a
+  distributional no-op would have cost ~90 GPU-min). Disclosed in the report.
 
 Dev sets used, and why:
 

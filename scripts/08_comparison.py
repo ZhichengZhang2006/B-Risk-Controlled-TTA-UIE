@@ -52,8 +52,9 @@ from common import ROOT, load_config, run_dir, save_json  # noqa: E402
 # source-only permission of the locked protocol).
 GATE_ARMS = ("source_frozen", "source_adapter", "strong_frozen", "always_accept",
              "simple_gate", "stochastic", "random_gate")
-# Arms shown but never eligible: label-using or non-deployable.
-DIAGNOSTIC_ARMS = ("oracle",)
+# Arms shown but never eligible: label-using, non-deployable, or a chance control
+# whose job is to test the mechanism (H5), not to be a performance reference.
+DIAGNOSTIC_ARMS = ("oracle", "random_matched")
 OURS = "ours"
 
 METRICS = ("psnr", "ssim", "mse")

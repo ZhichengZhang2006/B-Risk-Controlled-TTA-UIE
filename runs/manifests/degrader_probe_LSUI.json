@@ -1,0 +1,59 @@
+{
+  "source": "LSUI",
+  "n": 32,
+  "steps": 400,
+  "lr": 0.002,
+  "width": 32,
+  "history": [
+    {
+      "step": 0,
+      "loss": 0.07147465646266937
+    },
+    {
+      "step": 40,
+      "loss": 0.07072184979915619
+    },
+    {
+      "step": 80,
+      "loss": 0.05842011421918869
+    },
+    {
+      "step": 120,
+      "loss": 0.03687062859535217
+    },
+    {
+      "step": 160,
+      "loss": 0.11745282262563705
+    },
+    {
+      "step": 200,
+      "loss": 0.10814405977725983
+    },
+    {
+      "step": 240,
+      "loss": 0.07445667684078217
+    },
+    {
+      "step": 280,
+      "loss": 0.03713081777095795
+    },
+    {
+      "step": 320,
+      "loss": 0.0485609769821167
+    },
+    {
+      "step": 360,
+      "loss": 0.049075983464717865
+    },
+    {
+      "step": 399,
+      "loss": 0.16096089780330658
+    }
+  ],
+  "overfit_l1": 0.06554080545902252,
+  "resid_gt": 0.06554080545902252,
+  "resid_blur": 0.07110477983951569,
+  "discriminates": true,
+  "verdict": "cannot_fit_formulation_or_capacity",
+  "interpretation": "D is not usable; the re-degradation idea needs reformulating."
+}

@@ -47,8 +47,15 @@ class RiskController:
         l2: float = 1e-3,
         iters: int = 500,
         lr: float = 0.1,
+        sample_weight: Optional[np.ndarray] = None,
     ) -> "RiskController":
-        """L2-regularised logistic regression by full-batch gradient descent."""
+        """L2-regularised logistic regression by full-batch gradient descent.
+
+        ``sample_weight`` exists so the rare class is not swamped: with ~50% harmful
+        episodes on some streams and ~40% on others the imbalance is mild, but on a
+        three-feature model a handful of rows can otherwise decide the sign of a
+        coefficient.
+        """
         X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0)
         self.mean = X.mean(axis=0)
         self.std = X.std(axis=0)
@@ -57,12 +64,15 @@ class RiskController:
 
         w = np.zeros(Z.shape[1], dtype=np.float64)
         b = 0.0
-        n = len(Z)
+        sw = np.ones(len(Z)) if sample_weight is None else np.asarray(sample_weight, dtype=np.float64)
+        sw = sw / max(sw.mean(), 1e-12)
+        n = float(len(Z))
         for _ in range(iters):
             logits = Z @ w + b
             p = 1.0 / (1.0 + np.exp(-np.clip(logits, -30, 30)))
-            grad_w = Z.T @ (p - y) / n + l2 * w
-            grad_b = float((p - y).mean())
+            r = (p - y) * sw
+            grad_w = Z.T @ r / n + l2 * w
+            grad_b = float(r.sum() / n)
             w -= lr * grad_w
             b -= lr * grad_b
         self.coef, self.intercept = w, b

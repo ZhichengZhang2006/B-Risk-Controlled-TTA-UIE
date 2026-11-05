@@ -20,6 +20,7 @@ import json
 import os
 import sys
 import time
+from typing import List
 
 import torch
 
@@ -44,13 +45,23 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=None)
     ap.add_argument("--stream", required=True)
+    # ORDER MATTERS: "stochastic" auto-matches its destruction rate to the reset
+    # rate that "ours" actually produces on the same stream, so "ours" must come
+    # first.  It previously sat at the END of the list and the arm aborted with
+    # "stochastic with auto p must run after 'ours'" after all the other arms had
+    # already burned their GPU time.
     ap.add_argument("--methods", default="source_frozen,source_adapter,always_accept,random_gate,"
-                                            "oracle,simple_gate,stochastic,ours")
+                                            "oracle,simple_gate,ours,random_matched,stochastic")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--steps", type=int, default=0)
     ap.add_argument("--lr", type=float, default=0.0)
     ap.add_argument("--episode-len", type=int, default=0, help=">0 switches to episodic chunking")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--no-merge", action="store_true",
+                    help="overwrite online_results.json instead of merging arms by name")
+    ap.add_argument("--random-p", type=float, default=-1.0,
+                    help="commit probability for the rate-matched chance control; "
+                         "negative means 'auto' (use the gate's accept rate)")
     ap.add_argument("--stochastic-p", type=float, default=-1.0,
                     help="per-element restore probability for the CoTTA-style arm; "
                          "set equal to the gate's measured reset rate after the first pass")
@@ -102,6 +113,7 @@ def main() -> int:
         consistency=cfg["adapter"]["consistency"],
         memory=cfg["adapter"]["memory"],
         reset_every=args.episode_len,
+        seed=int(stream_cfg["seed"]),
     )
 
     out = run_dir(cfg, args.stream + backbone_suffix(args.backbone)
@@ -138,6 +150,24 @@ def main() -> int:
         elif method == "simple_gate":
             eng = SimpleThresholdGate(model, tau=0.0, cfg=acfg, method=method, prior=prior, degrader=degrader)
             s = eng.run(stream, log_path=os.path.join(out, "action_log_simple_gate.jsonl"), limit=n)
+        elif method == "random_matched":
+            # H5 control: commit with exactly the probability the gate committed,
+            # but with no information.  If `ours` is indistinguishable from this,
+            # the mechanism adds nothing over "update sometimes".
+            gate = next((r for r in rows if r["method"] == "ours"), None)
+            if gate is None:
+                raise SystemExit(
+                    "random_matched must run after 'ours': pass "
+                    "--methods ...,ours,random_matched (or --random-p <value>)")
+            p_use = args.random_p
+            if p_use < 0:
+                p_use = float(gate["accept_rate"])
+            p_use = min(max(p_use, 0.0), 1.0)
+            print(f"[{args.stream}] random_matched p={p_use:.4f} (matched accept rate)", flush=True)
+            eng = GatedAdaptation(model, kind="random", p=p_use, cfg=acfg, method=method,
+                                  seed=stream_cfg["seed"] + 7, prior=prior, degrader=degrader)
+            s = eng.run(stream, log_path=os.path.join(out, "action_log_random_matched.jsonl"), limit=n)
+            s["matched_p"] = p_use
         elif method == "stochastic":
             # Rate-matched to the gate: P3 compares the two policies at the same
             # expected amount of state destruction, so the arm must use the reset
@@ -147,12 +177,14 @@ def main() -> int:
             if p_use < 0:
                 gate = next((r for r in rows if r["method"] == "ours"), None)
                 if gate is None:
-                    raise SystemExit("stochastic with auto p must run after 'ours'")
+                    raise SystemExit(
+                        "stochastic with auto p must run after 'ours': pass "
+                        "--methods ...,ours,stochastic (or --stochastic-p <value>)")
                 p_use = float(gate["reset_rate"])
                 p_use = min(max(p_use, 1e-4), 0.5)
             print(f"[{args.stream}] stochastic p={p_use:.4f} (matched reset rate)", flush=True)
             eng = StochasticRestoration(model, p=p_use, cfg=acfg, method=method,
-                                        prior=prior, seed=stream_cfg["seed"])
+                                        prior=prior, seed=stream_cfg["seed"], degrader=degrader)
             s = eng.run(stream, log_path=os.path.join(out, "action_log_stochastic.jsonl"), limit=n)
             s["matched_p"] = p_use
         elif method == "ours":
@@ -169,6 +201,26 @@ def main() -> int:
         print(format_table([s]), flush=True)
 
     cmp = compare(rows, reference="source_frozen")
+
+    # Merge with an existing table instead of silently deleting arms that this
+    # invocation did not run.  Running one extra control arm used to overwrite the
+    # other eight: cheap to do, expensive to notice.  Rows are matched by method
+    # name and the freshly measured row wins.
+    out_path = os.path.join(out, "online_results.json")
+    merged: List[str] = []
+    if not args.no_merge and os.path.exists(out_path):
+        try:
+            old = json.load(open(out_path, encoding="utf-8"))
+        except Exception:
+            old = {}
+        old_rows = {r.get("method"): r for r in old.get("methods", [])}
+        new_names = {r.get("method") for r in cmp}
+        kept = [r for name, r in old_rows.items() if name not in new_names]
+        if kept:
+            cmp = compare(kept + rows, reference="source_frozen")
+            merged = sorted(old_rows)
+            print(f"[{args.stream}] merged with existing arms: {sorted(r['method'] for r in kept)}")
+
     payload = {
         "stream": args.stream,
         "target_split": f"{target_ds}/{target_split}",
@@ -183,10 +235,11 @@ def main() -> int:
         "device": device,
         "methods": cmp,
     }
-    save_json(payload, os.path.join(out, "online_results.json"))
+    payload["merged_existing_arms"] = bool(merged)
+    save_json(payload, out_path)
     print()
     print(format_table(cmp))
-    print("wrote", os.path.join(out, "online_results.json"))
+    print("wrote", out_path)
     return 0
 
 

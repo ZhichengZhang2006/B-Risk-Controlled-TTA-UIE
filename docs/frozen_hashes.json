@@ -1,0 +1,29 @@
+{
+  "frozen": {
+    "configs/main.yaml": "7f6dfa26eb788d52c7f7818302111a591eac26925a4bc8c736b0d2c9f6342d13",
+    "configs/sota_reference.json": "07b86c3c35686b013063d048a9aaadeb76bcbc84f02f3e274eb768525f3b3451",
+    "scripts/05_online_eval.py": "9423df5dfb8655165b18a19dfda347ae39ec6e19b511ad892bc96ea9d3ecb078",
+    "scripts/08_acceptance.py": "d6c5e2d813fb925297949e45630127578c1b623bf04acfa40e2e453abec92be1",
+    "scripts/08_comparison.py": "9229c5a86e1a18b5f543ff759bfca27bcc0c60f012d3db9c649f28e1bd3e26e3",
+    "src/brctta/adapt.py": "e370f2c38203609b7dcd9f3682f52b77fe48168c3d01e738b6f8c3183ef68119",
+    "src/brctta/baselines.py": "f4294a5b1ce9b4641b6e53580583ba51313455cf336da8f46aeda1cf8b88c515",
+    "src/brctta/cache.py": "0d6097374e712cb1d40e1815ba622ec29961df089f988a0e3be3d5c96757ad70",
+    "src/brctta/data.py": "7e95476ddf3aca3848c879e459d9c7d7b01ac0935426b3374e59fa70dbc45618",
+    "src/brctta/metrics.py": "b8b37f3ad4986d2ccf12970caaa74e017d7d22f6d6fd61aae78146f12d34699b",
+    "src/brctta/risk.py": "10362006dc58d27354d8d6e17eb00854c67717e033a9ebdeb0b12fe45d734a11",
+    "src/brctta/signals.py": "dbacd32c6a9ccfff0d5dddbb274961131f662eef5af0b96367af2c47c8d8c60f"
+  },
+  "manifest_sha256": "98c649cf5944da584c06d41ea6acb58246a1fab4e532da4d0f9e01b83a5134a2",
+  "manifests": {
+    "runs/manifests/cache_report.json": "7c78f4f0d81b5fc97f175f7e18b11bba50baa5cf15fe4b7257d2f9d49e9fddf8",
+    "runs/manifests/data_audit.json": "60fe07cd5b1419e3648dafd3833f5bce8544322b573ec9a89099562ee204257c",
+    "runs/manifests/degrader_probe_LSUI.json": "8e0bef3f831d28255fe4532c09a38d185c3b984f059afe851c6c0d8f22ab40e1",
+    "runs/manifests/diag_affine_LSUI2UIEB.json": "9d2a9650db9e43a27f3953d680cfedc42f2a02b0b94107d394b2b9a31d2f32aa",
+    "runs/manifests/engine_checks.json": "69b0c789b8f9c0d05b62038272a2fa2b97bb2f5b8ecfc2fdf8f8001b5e075a08",
+    "runs/manifests/metric_validation.json": "6fcdba572dda62e19c1cba62ea79751ac5599b379def24844dbf380162fc3c4a",
+    "runs/manifests/pool_auc_dev.json": "b0fb67d69a5a34a943e91fdf40dfddfabdfd298082c7a58d82cff79b56ca8c1a",
+    "runs/manifests/prior_LSUI.json": "7eb4fc2ffff75bdfda8652e55bf9add652658bdbc8086eb8b468137ef9f4c4c7",
+    "runs/manifests/prior_UIEB.json": "7927acbed076d76413876755f6245184c3579e0c0856466f23854155da4317a6",
+    "runs/manifests/signal_auc.json": "a77652af5cdabf30ac65cb25f816340be8c45309068a0a51969d0297b0c60f8f"
+  }
+}

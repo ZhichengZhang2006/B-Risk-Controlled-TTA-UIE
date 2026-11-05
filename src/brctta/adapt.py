@@ -41,6 +41,7 @@ class AdaptConfig:
     memory: int = 0          # 0 = current input only; k = current + last k-1 inputs
     reset_every: int = 0     # episodic chunking: reset theta to theta_0 every N images
     ema: float = 0.9         # EMA factor for the gradient-direction evidence
+    seed: int = 0            # makes the stochastic objective reproducible (see _stream_rng)
 
 
 @dataclass
@@ -63,6 +64,15 @@ class ActionRecord:
     d_anchor_true: float
     harmful: bool
     update_seconds: float
+    # --- candidate view (action-independent) ------------------------------ #
+    # The numbers the *decision* is judged on.  They are measured on the
+    # candidate state theta_+ regardless of whether it was committed, which is
+    # what makes the risk labels learnable.  Records written before this fix do
+    # not have them; consumers must fall back to the post values (see evaluate).
+    psnr_cand: float = float("nan")
+    ssim_cand: float = float("nan")
+    mse_cand: float = float("nan")
+    d_local_post: float = 0.0
 
     def to_json(self) -> dict:
         return {
@@ -71,8 +81,10 @@ class ActionRecord:
             "psnr_pre": self.psnr_pre, "ssim_pre": self.ssim_pre, "mse_pre": self.mse_pre,
             "psnr_post": self.psnr_post, "ssim_post": self.ssim_post, "mse_post": self.mse_post,
             "psnr_src": self.psnr_src, "ssim_src": self.ssim_src, "mse_src": self.mse_src,
+            "psnr_cand": self.psnr_cand, "ssim_cand": self.ssim_cand, "mse_cand": self.mse_cand,
             "d_local_true": self.d_local_true, "d_anchor_true": self.d_anchor_true,
-            "harmful": self.harmful,
+            "d_local_post": self.d_local_post, "harmful": self.harmful,
+            "update_seconds": self.update_seconds,
         }
 
 
@@ -109,7 +121,20 @@ class OnlineAdaptation:
     # ------------------------------------------------------------------ #
     # candidate proposal
     # ------------------------------------------------------------------ #
-    def _candidate(self, x: torch.Tensor):
+    def _stream_rng(self, step_index: int, sub: int) -> torch.Generator:
+        """Deterministic per-(image, sub-step) RNG for the stochastic objective.
+
+        The consistency term samples a photometric jitter, so without a seeded
+        generator the candidate depends on global RNG state and the same logged
+        action sequence does not reproduce the same outputs.  Deriving the seed
+        from (run seed, image index, sub-step) makes replay exact *and* keeps the
+        jitter independent across images, which is what the augmentation is for.
+        """
+        g = torch.Generator(device="cpu")
+        g.manual_seed((int(self.cfg.seed) * 1_000_003 + step_index * 97 + sub) % (2 ** 31 - 1))
+        return g
+
+    def _candidate(self, x: torch.Tensor, step_index: int = 0):
         """One Adapt() call: K SGD steps from theta_t, returning the candidate.
 
         The loss is taken over the current input plus the retained past inputs
@@ -130,10 +155,12 @@ class OnlineAdaptation:
         batch = [x] + [m for m in self.memory[-self.cfg.memory:]] if self.cfg.memory > 0 else [x]
         losses: List[float] = []
         gnorm = 0.0
-        for _ in range(self.cfg.steps):
+        for k in range(self.cfg.steps):
             opt.zero_grad(set_to_none=True)
+            gen = self._stream_rng(step_index, k)
             loss = sum(
-                self_ss_loss(self.model, b, prior=self.prior, with_consistency=self.cfg.consistency) for b in batch
+                self_ss_loss(self.model, b, prior=self.prior, with_consistency=self.cfg.consistency,
+                             generator=gen) for b in batch
             ) / len(batch)
             loss.backward()
             gnorm = float(torch.nn.utils.clip_grad_norm_(self.model.adapter_params(), self.cfg.grad_clip))
@@ -203,14 +230,21 @@ class OnlineAdaptation:
                 m_pre = M.per_image(y_pre[0], gt)
 
                 # 2. Candidate from current input only
-                cand, loss_plus, gnorm, gcos = self._candidate(x)
+                cand, loss_plus, gnorm, gcos = self._candidate(x, step_index=i)
                 with torch.no_grad():
                     self.model.restore(cand)
                     y_plus = self.model(x).detach()
+                    # Quality of the CANDIDATE, measured before the decision.
+                    # This is the quantity the gate is supposed to predict, so it
+                    # must not depend on the action taken (spec §4: d_local =
+                    # L(theta_+) - L(theta_t)).
+                    m_cand = M.per_image(y_plus[0], gt)
                 self.model.restore(self.theta_t)
                 with torch.no_grad():
                     loss_base = float(
-                        self_ss_loss(self.model, x, prior=self.prior, with_consistency=self.cfg.consistency).detach()
+                        self_ss_loss(self.model, x, prior=self.prior,
+                                     with_consistency=self.cfg.consistency,
+                                     generator=self._stream_rng(i, 90)).detach()
                     )
                 y_src = self._forward(x, self.theta0)
 
@@ -245,9 +279,16 @@ class OnlineAdaptation:
                     psnr_pre=m_pre["psnr"], ssim_pre=m_pre["ssim"], mse_pre=m_pre["mse"],
                     psnr_post=m_post["psnr"], ssim_post=m_post["ssim"], mse_post=m_post["mse"],
                     psnr_src=m_src["psnr"], ssim_src=m_src["ssim"], mse_src=m_src["mse"],
-                    d_local_true=float(m_post["mse"] - m_pre["mse"]),
-                    d_anchor_true=float(m_post["mse"] - m_src["mse"]),
-                    harmful=bool(m_post["mse"] > m_pre["mse"]),
+                    # Candidate utility: what THIS update would have done, whether
+                    # or not it was committed.  Previously these two used m_post,
+                    # so every rejected update was labelled "no change / harmless"
+                    # and the controller was trained on a label that mixed in its
+                    # own decision -- the gate could not learn to discriminate.
+                    d_local_true=float(m_cand["mse"] - m_pre["mse"]),
+                    d_anchor_true=float(m_cand["mse"] - m_src["mse"]),
+                    harmful=bool(m_cand["mse"] > m_pre["mse"]),
+                    psnr_cand=m_cand["psnr"], ssim_cand=m_cand["ssim"], mse_cand=m_cand["mse"],
+                    d_local_post=float(m_post["mse"] - m_pre["mse"]),
                     update_seconds=time.time() - t_start,
                 )
                 records.append(rec)

@@ -69,11 +69,25 @@ def lab_ab_prior_loss(y: torch.Tensor, prior: Dict) -> torch.Tensor:
     return ((ma - tgt[0]) ** 2 + (mb - tgt[1]) ** 2) / 100.0
 
 
-def consistency_loss(model, x: torch.Tensor, aug: str = "photometric") -> torch.Tensor:
-    """Augmentation consistency: f(x) should commute with a photometric jitter."""
+def consistency_loss(model, x: torch.Tensor, aug: str = "photometric",
+                     generator: Optional[torch.Generator] = None) -> torch.Tensor:
+    """Augmentation consistency: f(x) should commute with a photometric jitter.
+
+    ``generator`` makes the jitter reproducible.  Without it the objective draws
+    ``torch.empty(...).uniform_()`` from the global RNG, so two runs of the same
+    stream with the same actions produce different candidates -- which is exactly
+    what made the §13 replay check fail (max |dPSNR| 1.7e-3 dB on UIEB2LSUI,
+    2.2e-4 dB on LSUI2UFO).  Sampling on CPU from an explicit generator, then
+    moving the two scalars to the device, keeps the sample identical across
+    processes and devices.
+    """
     if aug == "photometric":
-        b = torch.empty(x.shape[0], 1, 1, 1, device=x.device).uniform_(-0.10, 0.10)
-        c = torch.empty(x.shape[0], 1, 1, 1, device=x.device).uniform_(0.85, 1.15)
+        if generator is not None:
+            b = torch.empty(x.shape[0], 1, 1, 1).uniform_(-0.10, 0.10, generator=generator).to(x.device)
+            c = torch.empty(x.shape[0], 1, 1, 1).uniform_(0.85, 1.15, generator=generator).to(x.device)
+        else:
+            b = torch.empty(x.shape[0], 1, 1, 1, device=x.device).uniform_(-0.10, 0.10)
+            c = torch.empty(x.shape[0], 1, 1, 1, device=x.device).uniform_(0.85, 1.15)
         xp = (x * c + b).clamp(0.0, 1.0)
         y = model(x)
         yp = model(xp)
@@ -90,6 +104,7 @@ def self_supervised_loss(
     prior: Optional[Dict] = None,
     weights: Optional[Dict[str, float]] = None,
     with_consistency: bool = True,
+    generator: Optional[torch.Generator] = None,
 ) -> torch.Tensor:
     """Composite no-label objective driving the candidate update."""
     w = {"hf": 1.0, "rgb": 0.5, "lab": 0.5, "tv": 0.02, "cons": 0.30}
@@ -103,7 +118,7 @@ def self_supervised_loss(
         loss = loss + w["lab"] * lab_ab_prior_loss(y, prior)
     loss = loss + w["tv"] * tv_loss(y)
     if with_consistency and w["cons"] > 0:
-        loss = loss + w["cons"] * consistency_loss(model, x)
+        loss = loss + w["cons"] * consistency_loss(model, x, generator=generator)
     return loss
 
 

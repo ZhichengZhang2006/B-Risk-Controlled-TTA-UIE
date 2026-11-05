@@ -1,0 +1,81 @@
+{
+  "C1_summarize": {
+    "checks": {
+      "NAR_0_cand==2/3": true,
+      "NAR_0==0": true,
+      "false_accept_rate==0": true,
+      "harmful_update_accept_ratio==0": true,
+      "beneficial_false_reject_rate==0": true,
+      "benefit_retention==1": true,
+      "legacy_flag_false": true,
+      "legacy_flagged": true
+    },
+    "ok": true,
+    "summary": {
+      "method": "unit",
+      "n": 3,
+      "candidate_labels_legacy": false,
+      "psnr_prequential": 20.0,
+      "ssim_prequential": 0.8000000000000002,
+      "mse_prequential": 0.01,
+      "psnr_median": 20.0,
+      "ssim_median": 0.8,
+      "psnr_final": 20.333333333333332,
+      "ssim_final": 0.8000000000000002,
+      "mse_final": 0.009300000000000001,
+      "dPSNR_mean": 0.3333333333333333,
+      "dPSNR_median": 0.0,
+      "dSSIM_mean": 0.0,
+      "dSSIM_median": 0.0,
+      "NAR_0": 0.0,
+      "NAR_0.1dB": 0.0,
+      "NAR_0.5dB": 0.0,
+      "worst10_dPSNR": 0.0,
+      "dPSNR_cand_mean": -0.5,
+      "dPSNR_cand_median": -0.5,
+      "NAR_0_cand": 0.6666666666666666,
+      "worst10_dPSNR_cand": -2.0,
+      "accept_rate": 0.3333333333333333,
+      "keep_rate": 0.6666666666666666,
+      "reset_rate": 0.0,
+      "false_accept_rate": 0.0,
+      "harmful_update_accept_ratio": 0.0,
+      "beneficial_false_reject_rate": 0.0,
+      "benefit_retention": 1.0,
+      "regret_dB_per_image": 0.0,
+      "update_seconds_mean": 0.01
+    }
+  },
+  "C2_labels_on_reject": {
+    "n": 3,
+    "d_local_true": [
+      4.361140716254916e-05,
+      5.469997929712783e-05,
+      -3.114534397189589e-05
+    ],
+    "n_nonzero": 3,
+    "n_harmful": 2,
+    "ok": true
+  },
+  "C3_determinism": {
+    "max_abs_dpsnr_pre": 0.0,
+    "max_abs_dpsnr_cand": 0.0,
+    "tol": 1e-06,
+    "ok": true
+  },
+  "C4_replay_exact": {
+    "max_abs_dpsnr_pre": 0.0,
+    "max_abs_dpsnr_cand": 7.851497230149107e-13,
+    "tol": 1e-06,
+    "ok": true
+  },
+  "C5_rollback_exact": {
+    "n_params": 8,
+    "params_bitwise_equal": true,
+    "forward_max_abs_pixel_diff": 0.0,
+    "forward_tol": 1e-05,
+    "perturbation_had_effect": true,
+    "ok": true
+  },
+  "ok": true
+}

@@ -94,7 +94,8 @@ def main() -> int:
     prior = load_prior(prior_path) if os.path.exists(prior_path) else None
     acfg = AdaptConfig(steps=args.steps or cfg["adapter"]["steps"],
                        lr=args.lr or cfg["adapter"]["lr"],
-                       consistency=cfg["adapter"]["consistency"], memory=cfg["adapter"]["memory"])
+                       consistency=cfg["adapter"]["consistency"], memory=cfg["adapter"]["memory"],
+                       seed=int(sc["seed"]))
 
     model = build_adapted(ckpt, device=device, hidden=cfg["adapter"]["hidden"],
                           backbone=args.backbone,

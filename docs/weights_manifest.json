@@ -1,0 +1,79 @@
+{
+  "backbone": "mambacue",
+  "note": "theta_0 for a transfer is the source adapter on top of the source checkpoint, not the bare backbone. Provenance: released MambaCue weights; upstream training corpus undocumented, so the claim is operational zero-shot (no target training), not a verified statement about upstream data.",
+  "weights": {
+    "LSUI2UIEB:theta0": {
+      "kind": "source_checkpoint",
+      "path": "/home/user/MambaCue/output/L1+SSIM+Prep+Lab+grad+Angle/four/color-illumination-contrast/both/LSUI/20261009_112952/best_model.pth",
+      "exists": true,
+      "bytes": 9063376,
+      "sha256": "8fdc58753d5e27fb14aebd43b1538594ca4c7bc01f6029fb807f505d327b2765",
+      "stream": "LSUI2UIEB",
+      "source": "LSUI",
+      "backbone": "mambacue"
+    },
+    "LSUI2UIEB:adapter": {
+      "kind": "source_adapter",
+      "path": "/home/user/BRCTTA/runs/adapter_pretrain_LSUI/adapter.pth",
+      "exists": true,
+      "bytes": 50880,
+      "sha256": "4296bf42fab04fe6dcd890848b05e4450add4b46e9a4a90b855317949418dee1",
+      "stream": "LSUI2UIEB",
+      "source": "LSUI"
+    },
+    "UIEB2LSUI:theta0": {
+      "kind": "source_checkpoint",
+      "path": "/home/user/MambaCue/output/L1+SSIM+Prep+Lab+grad+Angle/four/color-illumination-contrast/both/UIEB/20261009_092226/best_model.pth",
+      "exists": true,
+      "bytes": 9063376,
+      "sha256": "d38ebf61df31d841f903e1d8ffc0ab4da926f94649b880ef6175a4c1f12e2954",
+      "stream": "UIEB2LSUI",
+      "source": "UIEB",
+      "backbone": "mambacue"
+    },
+    "UIEB2LSUI:adapter": {
+      "kind": "source_adapter",
+      "path": "/home/user/BRCTTA/runs/adapter_pretrain_UIEB/adapter.pth",
+      "exists": true,
+      "bytes": 50880,
+      "sha256": "f8fe44d55da81ba87009452163440696a3249bb264626fee8a7aed576d706b73",
+      "stream": "UIEB2LSUI",
+      "source": "UIEB"
+    },
+    "LSUI2UFO:theta0": {
+      "kind": "source_checkpoint",
+      "path": "/home/user/MambaCue/output/L1+SSIM+Prep+Lab+grad+Angle/four/color-illumination-contrast/both/LSUI/20261009_112952/best_model.pth",
+      "exists": true,
+      "bytes": 9063376,
+      "sha256": "8fdc58753d5e27fb14aebd43b1538594ca4c7bc01f6029fb807f505d327b2765",
+      "stream": "LSUI2UFO",
+      "source": "LSUI",
+      "backbone": "mambacue"
+    },
+    "LSUI2UFO:adapter": {
+      "kind": "source_adapter",
+      "path": "/home/user/BRCTTA/runs/adapter_pretrain_LSUI/adapter.pth",
+      "exists": true,
+      "bytes": 50880,
+      "sha256": "4296bf42fab04fe6dcd890848b05e4450add4b46e9a4a90b855317949418dee1",
+      "stream": "LSUI2UFO",
+      "source": "LSUI"
+    },
+    "degrader:LSUI": {
+      "kind": "redegradation_model",
+      "path": "/home/user/BRCTTA/runs/degrader_LSUI/degrader.pth",
+      "exists": true,
+      "bytes": 1912582,
+      "sha256": "2a572f4c7d4e3abdc764853f84ef48847f4ab6e4c4129205a081f4dad41176ba",
+      "source": "LSUI"
+    },
+    "degrader:UIEB": {
+      "kind": "redegradation_model",
+      "path": "/home/user/BRCTTA/runs/degrader_UIEB/degrader.pth",
+      "exists": true,
+      "bytes": 1912582,
+      "sha256": "96c5b32b51b4b38cf61ae8243de5b6f3583caa87ad40a6250f96632c38d2d500",
+      "source": "UIEB"
+    }
+  }
+}

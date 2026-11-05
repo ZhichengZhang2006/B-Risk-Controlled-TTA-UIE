@@ -1,0 +1,397 @@
+{
+  "tolerance": 0.05,
+  "n_gates": 28,
+  "n_passed": 24,
+  "n_failed": 4,
+  "n_unverifiable": 0,
+  "verdict": "fail",
+  "status_fields": {
+    "performance": {
+      "verdict": "fail",
+      "detail": {
+        "n": 6,
+        "passed": 5,
+        "failed": 1,
+        "unverifiable": 0
+      },
+      "note": "six §11 gates (3 transfers x PSNR/SSIM) against the strongest measured comparable arm; target-supervised numbers excluded by construction"
+    },
+    "risk_control": {
+      "verdict": "fail",
+      "detail": {
+        "n": 12,
+        "passed": 9,
+        "failed": 3,
+        "unverifiable": 0
+      }
+    },
+    "reproducibility": {
+      "verdict": "pass",
+      "detail": {
+        "n": 6,
+        "passed": 6,
+        "failed": 0,
+        "unverifiable": 0
+      }
+    },
+    "novelty": {
+      "verdict": "documented_not_machine_checkable",
+      "detail": "docs/novelty_audit.md is an argument, not a measurement"
+    }
+  },
+  "blocks": {
+    "spec": {
+      "n": 6,
+      "passed": 5,
+      "failed": 1,
+      "unverifiable": 0
+    },
+    "protocol": {
+      "n": 6,
+      "passed": 6,
+      "failed": 0,
+      "unverifiable": 0
+    },
+    "claim": {
+      "n": 12,
+      "passed": 9,
+      "failed": 3,
+      "unverifiable": 0
+    },
+    "integrity": {
+      "n": 4,
+      "passed": 4,
+      "failed": 0,
+      "unverifiable": 0
+    }
+  },
+  "gates": [
+    {
+      "id": "G_LSUI2UIEB_psnr",
+      "ok": false,
+      "ours": 20.93611140845214,
+      "ref": 22.061189316554717,
+      "ref_arm": "strong_frozen",
+      "rel_gap": 0.050998062341921,
+      "tolerance": 0.05,
+      "abs_gap": -1.125077908102579,
+      "abs_gap_unit": "dB",
+      "mse_per_image_ours": {
+        "n": 89,
+        "mean": 0.016661948580053685,
+        "median": 0.009385301575971377,
+        "p90": 0.036064816283887774
+      },
+      "mse_per_image_ref": null,
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_LSUI2UIEB_ssim",
+      "ok": true,
+      "ours": 0.8560788040285784,
+      "ref": 0.8722319364105525,
+      "ref_arm": "strong_frozen",
+      "rel_gap": 0.018519308578000732,
+      "tolerance": 0.05,
+      "abs_gap": -0.016153132381974133,
+      "abs_gap_unit": "SSIM (absolute)",
+      "mse_per_image_ours": {
+        "n": 89,
+        "mean": 0.016661948580053685,
+        "median": 0.009385301575971377,
+        "p90": 0.036064816283887774
+      },
+      "mse_per_image_ref": null,
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_UIEB2LSUI_psnr",
+      "ok": true,
+      "ours": 21.988581674484344,
+      "ref": 22.177743408083572,
+      "ref_arm": "source_frozen",
+      "rel_gap": 0.008529349903574063,
+      "tolerance": 0.05,
+      "abs_gap": -0.18916173359922794,
+      "abs_gap_unit": "dB",
+      "mse_per_image_ours": {
+        "n": 428,
+        "mean": 0.011583371757575546,
+        "median": 0.007507329696668739,
+        "p90": 0.026188614148797983
+      },
+      "mse_per_image_ref": {
+        "n": 428,
+        "mean": 0.01097805497771959,
+        "median": 0.006989553708904928,
+        "p90": 0.025203588115653826
+      },
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_UIEB2LSUI_ssim",
+      "ok": true,
+      "ours": 0.8518686095934885,
+      "ref": 0.8539735467411259,
+      "ref_arm": "source_frozen",
+      "rel_gap": 0.0024648739479929908,
+      "tolerance": 0.05,
+      "abs_gap": -0.0021049371476373757,
+      "abs_gap_unit": "SSIM (absolute)",
+      "mse_per_image_ours": {
+        "n": 428,
+        "mean": 0.011583371757575546,
+        "median": 0.007507329696668739,
+        "p90": 0.026188614148797983
+      },
+      "mse_per_image_ref": {
+        "n": 428,
+        "mean": 0.01097805497771959,
+        "median": 0.006989553708904928,
+        "p90": 0.025203588115653826
+      },
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_LSUI2UFO_psnr",
+      "ok": true,
+      "ours": 27.659843116841483,
+      "ref": 28.140336484226523,
+      "ref_arm": "strong_frozen",
+      "rel_gap": 0.017074897723926334,
+      "tolerance": 0.05,
+      "abs_gap": -0.48049336738504067,
+      "abs_gap_unit": "dB",
+      "mse_per_image_ours": {
+        "n": 120,
+        "mean": 0.0020887036842255785,
+        "median": 0.0017244654634323076,
+        "p90": 0.003093409520103901
+      },
+      "mse_per_image_ref": null,
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_LSUI2UFO_ssim",
+      "ok": true,
+      "ours": 0.8649666717242376,
+      "ref": 0.8753274963332294,
+      "ref_arm": "strong_frozen",
+      "rel_gap": 0.011836512222446532,
+      "tolerance": 0.05,
+      "abs_gap": -0.010360824608991792,
+      "abs_gap_unit": "SSIM (absolute)",
+      "mse_per_image_ours": {
+        "n": 120,
+        "mean": 0.0020887036842255785,
+        "median": 0.0017244654634323076,
+        "p90": 0.003093409520103901
+      },
+      "mse_per_image_ref": null,
+      "mse_is_reported_not_gated": true
+    },
+    {
+      "id": "G_LSUI2UIEB_replay",
+      "ok": true,
+      "detail": {
+        "max_abs_dpsnr": 0.0,
+        "max_abs_dssim": 0.0,
+        "action_histogram": {
+          "keep": 89
+        }
+      }
+    },
+    {
+      "id": "G_LSUI2UIEB_candidate_labels",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "id": "G_UIEB2LSUI_replay",
+      "ok": true,
+      "detail": {
+        "max_abs_dpsnr": 0.0,
+        "max_abs_dssim": 0.0,
+        "action_histogram": {
+          "reset": 271,
+          "keep": 77,
+          "accept": 80
+        }
+      }
+    },
+    {
+      "id": "G_UIEB2LSUI_candidate_labels",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "id": "G_LSUI2UFO_replay",
+      "ok": true,
+      "detail": {
+        "max_abs_dpsnr": 0.0,
+        "max_abs_dssim": 0.0,
+        "action_histogram": {
+          "reset": 65,
+          "accept": 27,
+          "keep": 28
+        }
+      }
+    },
+    {
+      "id": "G_LSUI2UFO_candidate_labels",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "id": "G_LSUI2UIEB_beats_always",
+      "ok": false,
+      "active": false,
+      "note": "method abstained: no committed updates, so the tail-risk claim is unsupported",
+      "ours_worst10": 0.0,
+      "always_worst10": -0.0778475796945845,
+      "ours_NAR0": 0.0,
+      "always_NAR0": 0.30337078651685395,
+      "ours_worst10_cand": -0.09438033012755061,
+      "always_worst10_cand": -0.0778475796945845
+    },
+    {
+      "id": "G_LSUI2UIEB_positive_gain",
+      "ok": false,
+      "ours_dPSNR_mean": 0.0,
+      "note": "realised prequential gain must be strictly positive"
+    },
+    {
+      "id": "G_LSUI2UIEB_nondegenerate",
+      "ok": false,
+      "accept_rate": 0.0
+    },
+    {
+      "id": "G_LSUI2UIEB_not_worse_than_frozen",
+      "ok": true,
+      "ours": 20.93611140845214,
+      "frozen": 20.93611140845214,
+      "frozen_arm": "source_adapter"
+    },
+    {
+      "id": "G_UIEB2LSUI_beats_always",
+      "ok": true,
+      "active": true,
+      "note": "",
+      "ours_worst10": -0.040394730367446126,
+      "always_worst10": -0.09686775734025323,
+      "ours_NAR0": 0.11448598130841121,
+      "always_NAR0": 0.46261682242990654,
+      "ours_worst10_cand": -0.1088651940818508,
+      "always_worst10_cand": -0.09686775734025323
+    },
+    {
+      "id": "G_UIEB2LSUI_positive_gain",
+      "ok": true,
+      "ours_dPSNR_mean": 0.0034574157878162785,
+      "note": "realised prequential gain must be strictly positive"
+    },
+    {
+      "id": "G_UIEB2LSUI_nondegenerate",
+      "ok": true,
+      "accept_rate": 0.18691588785046728
+    },
+    {
+      "id": "G_UIEB2LSUI_not_worse_than_frozen",
+      "ok": true,
+      "ours": 21.988581674484344,
+      "frozen": 21.98924458322903,
+      "frozen_arm": "source_adapter"
+    },
+    {
+      "id": "G_LSUI2UFO_beats_always",
+      "ok": true,
+      "active": true,
+      "note": "",
+      "ours_worst10": -0.027144423941783735,
+      "always_worst10": -0.08267504695702795,
+      "ours_NAR0": 0.19166666666666668,
+      "always_NAR0": 0.5916666666666667,
+      "ours_worst10_cand": -0.0601576685130197,
+      "always_worst10_cand": -0.08267504695702795
+    },
+    {
+      "id": "G_LSUI2UFO_positive_gain",
+      "ok": true,
+      "ours_dPSNR_mean": 0.000832603703263531,
+      "note": "realised prequential gain must be strictly positive"
+    },
+    {
+      "id": "G_LSUI2UFO_nondegenerate",
+      "ok": true,
+      "accept_rate": 0.225
+    },
+    {
+      "id": "G_LSUI2UFO_not_worse_than_frozen",
+      "ok": true,
+      "ours": 27.659843116841483,
+      "frozen": 27.66229098072108,
+      "frozen_arm": "source_adapter"
+    },
+    {
+      "id": "G_ledger",
+      "ok": true,
+      "detail": "/home/user/BRCTTA/runs/experiment_ledger.csv"
+    },
+    {
+      "id": "G_freeze",
+      "ok": true,
+      "detail": "run scripts/12_freeze.py --check"
+    },
+    {
+      "id": "G_novelty",
+      "ok": true,
+      "detail": "docs/novelty_audit.md"
+    },
+    {
+      "id": "G_data_manifest",
+      "ok": true,
+      "detail": "runs/manifests/data_audit.json"
+    }
+  ],
+  "reference_policy": {
+    "spec_reference": "strongest measured deployable arm under the frozen protocol (runs/comparison/comparison_set.json, oracle excluded)",
+    "excluded_from_gate": [
+      "oracle",
+      "target-supervised",
+      "published-other-protocol"
+    ],
+    "separate_coordinates": {
+      "LSUI2UIEB": {
+        "target_supervision_reference": null,
+        "published_same_protocol": null,
+        "status": "reported as an absolute coordinate; NOT part of the §11 gate"
+      },
+      "UIEB2LSUI": {
+        "target_supervision_reference": null,
+        "published_same_protocol": null,
+        "status": "reported as an absolute coordinate; NOT part of the §11 gate"
+      },
+      "LSUI2UFO": {
+        "target_supervision_reference": null,
+        "published_same_protocol": null,
+        "status": "reported as an absolute coordinate; NOT part of the §11 gate"
+      }
+    }
+  },
+  "streams": {
+    "LSUI2UIEB": {
+      "online": true,
+      "replay_ok": true
+    },
+    "UIEB2LSUI": {
+      "online": true,
+      "replay_ok": true
+    },
+    "LSUI2UFO": {
+      "online": true,
+      "replay_ok": true
+    }
+  },
+  "frozen_script_sha256": "d6c5e2d813fb925297949e45630127578c1b623bf04acfa40e2e453abec92be1",
+  "note": "MSE is reported per image but never used as an acceptance criterion (spec §11). g_m = max(0, (S_m - R_m)/S_m) with S the strongest comparable arm; PSNR gaps are reported in dB. An unverifiable gate is never counted as passed."
+}

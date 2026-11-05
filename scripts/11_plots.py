@@ -4,8 +4,11 @@ Three figures, each answering one question the report must answer:
 
   1. `curves_<stream>.png` -- PSNR/SSIM of the running state over the stream for
      every arm.  Shows *when* an arm gains or loses, which a single number hides.
-  2. `dpsnr_hist_<stream>.png` -- per-image ΔPSNR histogram (post minus pre) for
-     the gate.  The negative-transfer story lives in the left tail.
+  2. `dpsnr_hist_<stream>.png` -- per-image ΔPSNR histograms for the gate, on both
+     views: *realised* (post - pre, what the stream experienced) and *candidate*
+     (cand - pre, what each proposed update was worth whether or not it was
+     committed).  The negative-transfer story lives in the left tail, and the
+     candidate view is the only one that shows what the gate had to choose from.
   3. `cer_<stream>.png` -- cumulative ΔPSNR vs stream position: the gate's
      cumulative regret against frozen and against always-accept.
 
@@ -29,6 +32,9 @@ import numpy as np  # noqa: E402
 
 from common import load_config, run_dir  # noqa: E402
 
+# action_log_<suffix>.jsonl -> arm name used in online_results.json
+ARM_OF_SUFFIX = {"source": "source_frozen", "always": "always_accept", "": "ours"}
+
 COLORS = {"source_frozen": "#888888", "source_adapter": "#444444",
           "always_accept": "#d95f02", "random_gate": "#7570b3",
           "oracle": "#1b9e77", "simple_gate": "#e7298a",
@@ -50,14 +56,26 @@ def read_jsonl(path):
 
 
 def find_logs(cfg, stream):
-    """All action logs for one stream, keyed by method name."""
+    """All action logs for one stream, keyed by method name.
+
+    Results live in ``runs/<STREAM>/`` (that is where 05_online_eval writes), not
+    in ``runs/online_<STREAM>/``; the previous glob matched nothing, so the
+    figure step silently reported "no online results yet" after a full run.
+    """
     logs = {}
-    for path in glob.glob(os.path.join(cfg["paths"]["out_root"], "online_*", "action_log_*.jsonl")):
-        base = os.path.basename(path)
-        method = base[len("action_log_"):-len(".jsonl")]
-        d = json.load(open(os.path.join(os.path.dirname(path), "online_results.json")))
-        if d.get("stream") != stream:
+    for path in glob.glob(os.path.join(cfg["paths"]["out_root"], "*", "action_log_*.jsonl")):
+        d = os.path.dirname(path)
+        if "_replay" in os.path.basename(path):
             continue
+        res_path = os.path.join(d, "online_results.json")
+        if not os.path.exists(res_path):
+            continue
+        with open(res_path, encoding="utf-8") as fh:
+            payload = json.load(fh)
+        if payload.get("stream") != stream:
+            continue
+        suffix = os.path.basename(path)[len("action_log_"):-len(".jsonl")]
+        method = ARM_OF_SUFFIX.get(suffix, suffix)
         logs[method] = path
     return logs
 
@@ -144,7 +162,8 @@ def main() -> int:
 
     streams = [args.stream] if args.stream else sorted(
         json.load(open(p)).get("stream", "")
-        for p in glob.glob(os.path.join(cfg["paths"]["out_root"], "online_*", "online_results.json"))
+        for p in glob.glob(os.path.join(cfg["paths"]["out_root"], "*", "online_results.json"))
+        if not p.endswith("_episodic/online_results.json")
     )
     streams = [s for s in dict.fromkeys(streams) if s]
     if not streams:

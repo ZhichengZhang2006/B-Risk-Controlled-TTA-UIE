@@ -39,7 +39,7 @@ resolve_sel() {
 
 if ! SEL=$(resolve_sel); then
   echo "--- [04b] selecting adapter budget on dev (${DEV})"
-  $PY scripts/04b_select_adapt.py --stream "$STREAM" --n 60 --dev-domain "$DEV" \
+  bash scripts/gpu_run.sh 04b_select_adapt.py --stream "$STREAM" --n 60 --dev-domain "$DEV" \
       --backbone "$BACKBONE" --grid 1x0.001,3x0.003,5x0.01
   SEL=$(resolve_sel)
 fi
@@ -48,7 +48,7 @@ export SEL_FILE="$SEL"
 echo "adapter budget: steps=$STEPS lr=$LR  (from $SEL)"
 
 echo "--- [02] episodes on dev"
-$PY scripts/02_episodes.py --stream "$STREAM" --dev-domain "$DEV" --episode-len 32 \
+bash scripts/gpu_run.sh 02_episodes.py --stream "$STREAM" --dev-domain "$DEV" --episode-len 32 \
     --steps "$STEPS" --lr "$LR" --backbone "$BACKBONE"
 # 02 names the directory after which dev domain it actually used, so resolve it
 # from disk rather than reconstructing the name here.
@@ -64,9 +64,9 @@ echo "--- [03] risk controller"
 $PY scripts/03_risk_train.py --stream "$STREAM" --episodes "$EPFILE"
 
 echo "--- [05] causal online evaluation on the locked test split"
-$PY scripts/05_online_eval.py --stream "$STREAM" --steps "$STEPS" --lr "$LR" --backbone "$BACKBONE"
+bash scripts/gpu_run.sh 05_online_eval.py --stream "$STREAM" --steps "$STEPS" --lr "$LR" --backbone "$BACKBONE"
 
 echo "--- [07] replay check"
-$PY scripts/07_replay.py --stream "$STREAM" --steps "$STEPS" --lr "$LR" --backbone "$BACKBONE"
+bash scripts/gpu_run.sh 07_replay.py --stream "$STREAM" --steps "$STEPS" --lr "$LR" --backbone "$BACKBONE"
 
 echo "=================== $(date -Is) done stream=$STREAM ==================="

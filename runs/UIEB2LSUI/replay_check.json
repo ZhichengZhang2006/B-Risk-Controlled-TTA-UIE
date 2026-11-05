@@ -1,0 +1,16 @@
+{
+  "stream": "UIEB2LSUI",
+  "log": "/home/user/BRCTTA/runs/UIEB2LSUI/action_log.jsonl",
+  "n": 428,
+  "max_abs_dpsnr": 0.0,
+  "max_abs_dssim": 0.0,
+  "mean_abs_dpsnr": 0.0,
+  "tolerance_psnr": 0.0001,
+  "tolerance_ssim": 1e-06,
+  "action_histogram": {
+    "reset": 271,
+    "keep": 77,
+    "accept": 80
+  },
+  "ok": true
+}

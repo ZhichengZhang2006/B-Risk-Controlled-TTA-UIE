@@ -1,0 +1,1064 @@
+{
+  "episodes_LSUI2UFO_UFO_dev_target": {
+    "path": "/home/user/BRCTTA/runs/episodes_LSUI2UFO_UFO_dev_target/episodes.jsonl",
+    "n": 300,
+    "keys": [
+      "upd_l2_cur",
+      "upd_l2_anchor",
+      "upd_rel_anchor",
+      "dout_cur",
+      "dout_src",
+      "loss_ss",
+      "dloss_ss",
+      "clip_ratio",
+      "color_balance",
+      "sat_mean",
+      "contrast_ratio",
+      "hf_resid",
+      "grad_cosine",
+      "upd_step_norm",
+      "redegrade_cur",
+      "redegrade_t",
+      "redegrade_src",
+      "dloss_redeg",
+      "dredeg_src"
+    ],
+    "d_local_mean": 5.564946909573518e-06,
+    "d_local_median": 1.6324047368469026e-06,
+    "psnr_cand_mean": -0.0059281057853459865,
+    "psnr_cand_neg_frac": 0.5766666666666667,
+    "delta_median_mse": 1.6324047368469026e-06,
+    "mse_delta": {
+      "pos_rate": 0.5,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.4756888888888889,
+          "abs_dev": 0.024311111111111117
+        },
+        "upd_l2_anchor": {
+          "auc": 0.5773777777777778,
+          "abs_dev": 0.07737777777777777
+        },
+        "upd_rel_anchor": {
+          "auc": 0.5773777777777778,
+          "abs_dev": 0.07737777777777777
+        },
+        "dout_cur": {
+          "auc": 0.5556,
+          "abs_dev": 0.05559999999999998
+        },
+        "dout_src": {
+          "auc": 0.6003555555555555,
+          "abs_dev": 0.10035555555555553
+        },
+        "loss_ss": {
+          "auc": 0.47631111111111113,
+          "abs_dev": 0.02368888888888887
+        },
+        "dloss_ss": {
+          "auc": 0.5189777777777778,
+          "abs_dev": 0.01897777777777776
+        },
+        "clip_ratio": {
+          "auc": 0.49948888888888887,
+          "abs_dev": 0.0005111111111111288
+        },
+        "color_balance": {
+          "auc": 0.5543555555555556,
+          "abs_dev": 0.0543555555555556
+        },
+        "sat_mean": {
+          "auc": 0.5117333333333334,
+          "abs_dev": 0.011733333333333373
+        },
+        "contrast_ratio": {
+          "auc": 0.4273777777777778,
+          "abs_dev": 0.0726222222222222
+        },
+        "hf_resid": {
+          "auc": 0.5589333333333333,
+          "abs_dev": 0.05893333333333328
+        },
+        "grad_cosine": {
+          "auc": 0.7225777777777778,
+          "abs_dev": 0.22257777777777776
+        },
+        "upd_step_norm": {
+          "auc": 0.42133333333333334,
+          "abs_dev": 0.07866666666666666
+        },
+        "redegrade_cur": {
+          "auc": 0.5449333333333334,
+          "abs_dev": 0.04493333333333338
+        },
+        "redegrade_t": {
+          "auc": 0.5442222222222223,
+          "abs_dev": 0.044222222222222274
+        },
+        "redegrade_src": {
+          "auc": 0.5430666666666667,
+          "abs_dev": 0.0430666666666667
+        },
+        "dloss_redeg": {
+          "auc": 0.5765555555555556,
+          "abs_dev": 0.0765555555555556
+        },
+        "dredeg_src": {
+          "auc": 0.5236,
+          "abs_dev": 0.023599999999999954
+        }
+      },
+      "ranked": [
+        {
+          "key": "grad_cosine",
+          "auc": 0.7225777777777778
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.6003555555555555
+        },
+        {
+          "key": "upd_step_norm",
+          "auc": 0.42133333333333334
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.5773777777777778
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.5773777777777778
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.5765555555555556
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.4273777777777778
+        },
+        {
+          "key": "hf_resid",
+          "auc": 0.5589333333333333
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.5556
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.5543555555555556
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.5449333333333334
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.5442222222222223
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.5430666666666667
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.4756888888888889
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.47631111111111113
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.5236
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.5189777777777778
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.5117333333333334
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.49948888888888887
+        }
+      ],
+      "cv_auc_all_keys": 0.7323555555555555,
+      "cv_auc_top5_inside_fold": 0.7108444444444444,
+      "cv_auc_top3_inside_fold": 0.7069777777777778
+    },
+    "psnr_drop": {
+      "pos_rate": 0.5766666666666667,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.4708024213736289,
+          "abs_dev": 0.029197578626371123
+        },
+        "upd_l2_anchor": {
+          "auc": 0.5479950844294752,
+          "abs_dev": 0.0479950844294752
+        },
+        "upd_rel_anchor": {
+          "auc": 0.5479950844294752,
+          "abs_dev": 0.0479950844294752
+        },
+        "dout_cur": {
+          "auc": 0.5423967957762506,
+          "abs_dev": 0.04239679577625055
+        },
+        "dout_src": {
+          "auc": 0.5709344135451276,
+          "abs_dev": 0.07093441354512764
+        },
+        "loss_ss": {
+          "auc": 0.5010695917345592,
+          "abs_dev": 0.0010695917345592276
+        },
+        "dloss_ss": {
+          "auc": 0.49797460288562195,
+          "abs_dev": 0.002025397114378047
+        },
+        "clip_ratio": {
+          "auc": 0.49924901005871375,
+          "abs_dev": 0.0007509899412862509
+        },
+        "color_balance": {
+          "auc": 0.572709480679077,
+          "abs_dev": 0.07270948067907701
+        },
+        "sat_mean": {
+          "auc": 0.5182285740294024,
+          "abs_dev": 0.018228574029402367
+        },
+        "contrast_ratio": {
+          "auc": 0.41174730326339265,
+          "abs_dev": 0.08825269673660735
+        },
+        "hf_resid": {
+          "auc": 0.5492239770606708,
+          "abs_dev": 0.04922397706067083
+        },
+        "grad_cosine": {
+          "auc": 0.7412725865914159,
+          "abs_dev": 0.24127258659141593
+        },
+        "upd_step_norm": {
+          "auc": 0.44968367393382186,
+          "abs_dev": 0.05031632606617814
+        },
+        "redegrade_cur": {
+          "auc": 0.5283783168722407,
+          "abs_dev": 0.028378316872240683
+        },
+        "redegrade_t": {
+          "auc": 0.5263301624869146,
+          "abs_dev": 0.026330162486914555
+        },
+        "redegrade_src": {
+          "auc": 0.5239178917664193,
+          "abs_dev": 0.02391789176641934
+        },
+        "dloss_redeg": {
+          "auc": 0.6057302808247235,
+          "abs_dev": 0.10573028082472347
+        },
+        "dredeg_src": {
+          "auc": 0.5414409903964317,
+          "abs_dev": 0.041440990396431676
+        }
+      },
+      "ranked": [
+        {
+          "key": "grad_cosine",
+          "auc": 0.7412725865914159
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.6057302808247235
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.41174730326339265
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.572709480679077
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.5709344135451276
+        },
+        {
+          "key": "upd_step_norm",
+          "auc": 0.44968367393382186
+        },
+        {
+          "key": "hf_resid",
+          "auc": 0.5492239770606708
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.5479950844294752
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.5479950844294752
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.5423967957762506
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.5414409903964317
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.4708024213736289
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.5283783168722407
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.5263301624869146
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.5239178917664193
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.5182285740294024
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.49797460288562195
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.5010695917345592
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.49924901005871375
+        }
+      ],
+      "cv_auc_all_keys": 0.7426152655773519,
+      "cv_auc_top5_inside_fold": 0.7464840016385235,
+      "cv_auc_top3_inside_fold": 0.7494424468617723
+    }
+  },
+  "episodes_LSUI2UIEB_UIEB_dev_target": {
+    "path": "/home/user/BRCTTA/runs/episodes_LSUI2UIEB_UIEB_dev_target/episodes.jsonl",
+    "n": 89,
+    "keys": [
+      "upd_l2_cur",
+      "upd_l2_anchor",
+      "upd_rel_anchor",
+      "dout_cur",
+      "dout_src",
+      "loss_ss",
+      "dloss_ss",
+      "clip_ratio",
+      "color_balance",
+      "sat_mean",
+      "contrast_ratio",
+      "hf_resid",
+      "grad_cosine",
+      "upd_step_norm",
+      "redegrade_cur",
+      "redegrade_t",
+      "redegrade_src",
+      "dloss_redeg",
+      "dredeg_src"
+    ],
+    "d_local_mean": -2.8884938674441825e-05,
+    "d_local_median": -2.1306015320965432e-05,
+    "psnr_cand_mean": 0.005206101196770451,
+    "psnr_cand_neg_frac": 0.39325842696629215,
+    "delta_median_mse": -2.1306015320965432e-05,
+    "mse_delta": {
+      "pos_rate": 0.4943820224719101,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.45151515151515154,
+          "abs_dev": 0.048484848484848464
+        },
+        "upd_l2_anchor": {
+          "auc": 0.4823232323232323,
+          "abs_dev": 0.01767676767676768
+        },
+        "upd_rel_anchor": {
+          "auc": 0.4823232323232323,
+          "abs_dev": 0.01767676767676768
+        },
+        "dout_cur": {
+          "auc": 0.5505050505050505,
+          "abs_dev": 0.0505050505050505
+        },
+        "dout_src": {
+          "auc": 0.4202020202020202,
+          "abs_dev": 0.07979797979797981
+        },
+        "loss_ss": {
+          "auc": 0.42272727272727273,
+          "abs_dev": 0.07727272727272727
+        },
+        "dloss_ss": {
+          "auc": 0.5454545454545454,
+          "abs_dev": 0.045454545454545414
+        },
+        "clip_ratio": {
+          "auc": 0.5707070707070707,
+          "abs_dev": 0.07070707070707072
+        },
+        "color_balance": {
+          "auc": 0.46414141414141413,
+          "abs_dev": 0.03585858585858587
+        },
+        "sat_mean": {
+          "auc": 0.44595959595959594,
+          "abs_dev": 0.054040404040404055
+        },
+        "contrast_ratio": {
+          "auc": 0.5141414141414141,
+          "abs_dev": 0.014141414141414121
+        },
+        "hf_resid": {
+          "auc": 0.46060606060606063,
+          "abs_dev": 0.03939393939393937
+        },
+        "grad_cosine": {
+          "auc": 0.45252525252525255,
+          "abs_dev": 0.04747474747474745
+        },
+        "upd_step_norm": {
+          "auc": 0.4121212121212121,
+          "abs_dev": 0.08787878787878789
+        },
+        "redegrade_cur": {
+          "auc": 0.5707070707070707,
+          "abs_dev": 0.07070707070707072
+        },
+        "redegrade_t": {
+          "auc": 0.5717171717171717,
+          "abs_dev": 0.07171717171717173
+        },
+        "redegrade_src": {
+          "auc": 0.5712121212121212,
+          "abs_dev": 0.07121212121212117
+        },
+        "dloss_redeg": {
+          "auc": 0.45252525252525255,
+          "abs_dev": 0.04747474747474745
+        },
+        "dredeg_src": {
+          "auc": 0.454040404040404,
+          "abs_dev": 0.04595959595959598
+        }
+      },
+      "ranked": [
+        {
+          "key": "upd_step_norm",
+          "auc": 0.4121212121212121
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.4202020202020202
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.42272727272727273
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.5717171717171717
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.5712121212121212
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.5707070707070707
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.5707070707070707
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.44595959595959594
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.5505050505050505
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.45151515151515154
+        },
+        {
+          "key": "grad_cosine",
+          "auc": 0.45252525252525255
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.45252525252525255
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.454040404040404
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.5454545454545454
+        },
+        {
+          "key": "hf_resid",
+          "auc": 0.46060606060606063
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.46414141414141413
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.4823232323232323
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.4823232323232323
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.5141414141414141
+        }
+      ],
+      "cv_auc_all_keys": 0.42424242424242425,
+      "cv_auc_top5_inside_fold": 0.3282828282828283,
+      "cv_auc_top3_inside_fold": 0.3429292929292929
+    },
+    "psnr_drop": {
+      "pos_rate": 0.39325842696629215,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.4767195767195767,
+          "abs_dev": 0.02328042328042329
+        },
+        "upd_l2_anchor": {
+          "auc": 0.46825396825396826,
+          "abs_dev": 0.031746031746031744
+        },
+        "upd_rel_anchor": {
+          "auc": 0.46825396825396826,
+          "abs_dev": 0.031746031746031744
+        },
+        "dout_cur": {
+          "auc": 0.5253968253968254,
+          "abs_dev": 0.025396825396825418
+        },
+        "dout_src": {
+          "auc": 0.4211640211640212,
+          "abs_dev": 0.07883597883597881
+        },
+        "loss_ss": {
+          "auc": 0.43915343915343913,
+          "abs_dev": 0.06084656084656087
+        },
+        "dloss_ss": {
+          "auc": 0.5380952380952381,
+          "abs_dev": 0.03809523809523807
+        },
+        "clip_ratio": {
+          "auc": 0.5748677248677249,
+          "abs_dev": 0.07486772486772486
+        },
+        "color_balance": {
+          "auc": 0.4417989417989418,
+          "abs_dev": 0.0582010582010582
+        },
+        "sat_mean": {
+          "auc": 0.4291005291005291,
+          "abs_dev": 0.0708994708994709
+        },
+        "contrast_ratio": {
+          "auc": 0.5058201058201058,
+          "abs_dev": 0.0058201058201058364
+        },
+        "hf_resid": {
+          "auc": 0.5338624338624338,
+          "abs_dev": 0.033862433862433816
+        },
+        "grad_cosine": {
+          "auc": 0.5132275132275133,
+          "abs_dev": 0.013227513227513255
+        },
+        "upd_step_norm": {
+          "auc": 0.3915343915343915,
+          "abs_dev": 0.10846560846560849
+        },
+        "redegrade_cur": {
+          "auc": 0.5957671957671957,
+          "abs_dev": 0.09576719576719572
+        },
+        "redegrade_t": {
+          "auc": 0.5973544973544973,
+          "abs_dev": 0.0973544973544973
+        },
+        "redegrade_src": {
+          "auc": 0.5962962962962963,
+          "abs_dev": 0.09629629629629632
+        },
+        "dloss_redeg": {
+          "auc": 0.43174603174603177,
+          "abs_dev": 0.06825396825396823
+        },
+        "dredeg_src": {
+          "auc": 0.43862433862433864,
+          "abs_dev": 0.06137566137566136
+        }
+      },
+      "ranked": [
+        {
+          "key": "upd_step_norm",
+          "auc": 0.3915343915343915
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.5973544973544973
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.5962962962962963
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.5957671957671957
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.4211640211640212
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.5748677248677249
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.4291005291005291
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.43174603174603177
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.43862433862433864
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.43915343915343913
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.4417989417989418
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.5380952380952381
+        },
+        {
+          "key": "hf_resid",
+          "auc": 0.5338624338624338
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.46825396825396826
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.46825396825396826
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.5253968253968254
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.4767195767195767
+        },
+        {
+          "key": "grad_cosine",
+          "auc": 0.5132275132275133
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.5058201058201058
+        }
+      ],
+      "cv_auc_all_keys": 0.4396825396825397,
+      "cv_auc_top5_inside_fold": 0.4084656084656085,
+      "cv_auc_top3_inside_fold": 0.4275132275132275
+    }
+  },
+  "episodes_UIEB2LSUI_LSUI_dev_target": {
+    "path": "/home/user/BRCTTA/runs/episodes_UIEB2LSUI_LSUI_dev_target/episodes.jsonl",
+    "n": 428,
+    "keys": [
+      "upd_l2_cur",
+      "upd_l2_anchor",
+      "upd_rel_anchor",
+      "dout_cur",
+      "dout_src",
+      "loss_ss",
+      "dloss_ss",
+      "clip_ratio",
+      "color_balance",
+      "sat_mean",
+      "contrast_ratio",
+      "hf_resid",
+      "grad_cosine",
+      "upd_step_norm",
+      "redegrade_cur",
+      "redegrade_t",
+      "redegrade_src",
+      "dloss_redeg",
+      "dredeg_src"
+    ],
+    "d_local_mean": 2.633682236803191e-06,
+    "d_local_median": 2.986540020905612e-06,
+    "psnr_cand_mean": -0.007763215343932443,
+    "psnr_cand_neg_frac": 0.5210280373831776,
+    "delta_median_mse": 2.986540020905612e-06,
+    "mse_delta": {
+      "pos_rate": 0.5,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.5105031007074854,
+          "abs_dev": 0.010503100707485391
+        },
+        "upd_l2_anchor": {
+          "auc": 0.4897807668792034,
+          "abs_dev": 0.01021923312079659
+        },
+        "upd_rel_anchor": {
+          "auc": 0.4897807668792034,
+          "abs_dev": 0.01021923312079659
+        },
+        "dout_cur": {
+          "auc": 0.48467115031880514,
+          "abs_dev": 0.015328849681194856
+        },
+        "dout_src": {
+          "auc": 0.4834265001310158,
+          "abs_dev": 0.01657349986898421
+        },
+        "loss_ss": {
+          "auc": 0.36883133898157044,
+          "abs_dev": 0.13116866101842956
+        },
+        "dloss_ss": {
+          "auc": 0.47213730456808456,
+          "abs_dev": 0.02786269543191544
+        },
+        "clip_ratio": {
+          "auc": 0.5549283780242816,
+          "abs_dev": 0.05492837802428163
+        },
+        "color_balance": {
+          "auc": 0.4607826011005328,
+          "abs_dev": 0.03921739889946718
+        },
+        "sat_mean": {
+          "auc": 0.5662503275395231,
+          "abs_dev": 0.06625032753952309
+        },
+        "contrast_ratio": {
+          "auc": 0.5928137828631321,
+          "abs_dev": 0.09281378286313213
+        },
+        "hf_resid": {
+          "auc": 0.3346362127696742,
+          "abs_dev": 0.1653637872303258
+        },
+        "grad_cosine": {
+          "auc": 0.4777928203336536,
+          "abs_dev": 0.02220717966634639
+        },
+        "upd_step_norm": {
+          "auc": 0.5184513931347716,
+          "abs_dev": 0.01845139313477162
+        },
+        "redegrade_cur": {
+          "auc": 0.420102192331208,
+          "abs_dev": 0.07989780766879201
+        },
+        "redegrade_t": {
+          "auc": 0.4185300026203162,
+          "abs_dev": 0.0814699973796838
+        },
+        "redegrade_src": {
+          "auc": 0.4124814394270242,
+          "abs_dev": 0.0875185605729758
+        },
+        "dloss_redeg": {
+          "auc": 0.60409206044196,
+          "abs_dev": 0.10409206044195995
+        },
+        "dredeg_src": {
+          "auc": 0.5764913966285266,
+          "abs_dev": 0.07649139662852655
+        }
+      },
+      "ranked": [
+        {
+          "key": "hf_resid",
+          "auc": 0.3346362127696742
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.36883133898157044
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.60409206044196
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.5928137828631321
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.4124814394270242
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.4185300026203162
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.420102192331208
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.5764913966285266
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.5662503275395231
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.5549283780242816
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.4607826011005328
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.47213730456808456
+        },
+        {
+          "key": "grad_cosine",
+          "auc": 0.4777928203336536
+        },
+        {
+          "key": "upd_step_norm",
+          "auc": 0.5184513931347716
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.4834265001310158
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.48467115031880514
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.5105031007074854
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.4897807668792034
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.4897807668792034
+        }
+      ],
+      "cv_auc_all_keys": 0.7127041663027338,
+      "cv_auc_top5_inside_fold": 0.7066119311730282,
+      "cv_auc_top3_inside_fold": 0.6794261507555245
+    },
+    "psnr_drop": {
+      "pos_rate": 0.5210280373831776,
+      "per_key": {
+        "upd_l2_cur": {
+          "auc": 0.5110357650661709,
+          "abs_dev": 0.011035765066170877
+        },
+        "upd_l2_anchor": {
+          "auc": 0.49003609318604396,
+          "abs_dev": 0.009963906813956036
+        },
+        "upd_rel_anchor": {
+          "auc": 0.49003609318604396,
+          "abs_dev": 0.009963906813956036
+        },
+        "dout_cur": {
+          "auc": 0.48832986984578364,
+          "abs_dev": 0.011670130154216363
+        },
+        "dout_src": {
+          "auc": 0.48292682926829267,
+          "abs_dev": 0.017073170731707332
+        },
+        "loss_ss": {
+          "auc": 0.3653942907142076,
+          "abs_dev": 0.1346057092857924
+        },
+        "dloss_ss": {
+          "auc": 0.4684895548507055,
+          "abs_dev": 0.03151044514929452
+        },
+        "clip_ratio": {
+          "auc": 0.5497757847533632,
+          "abs_dev": 0.049775784753363195
+        },
+        "color_balance": {
+          "auc": 0.45595537569725475,
+          "abs_dev": 0.04404462430274525
+        },
+        "sat_mean": {
+          "auc": 0.5670786393962595,
+          "abs_dev": 0.06707863939625947
+        },
+        "contrast_ratio": {
+          "auc": 0.6065952094498523,
+          "abs_dev": 0.10659520944985235
+        },
+        "hf_resid": {
+          "auc": 0.335010390462649,
+          "abs_dev": 0.16498960953735098
+        },
+        "grad_cosine": {
+          "auc": 0.4838018155966313,
+          "abs_dev": 0.016198184403368676
+        },
+        "upd_step_norm": {
+          "auc": 0.5118451274198841,
+          "abs_dev": 0.011845127419884083
+        },
+        "redegrade_cur": {
+          "auc": 0.4118560647489883,
+          "abs_dev": 0.08814393525101172
+        },
+        "redegrade_t": {
+          "auc": 0.4104123373072296,
+          "abs_dev": 0.08958766269277041
+        },
+        "redegrade_src": {
+          "auc": 0.40419993437602536,
+          "abs_dev": 0.09580006562397464
+        },
+        "dloss_redeg": {
+          "auc": 0.597462539647818,
+          "abs_dev": 0.09746253964781804
+        },
+        "dredeg_src": {
+          "auc": 0.5738816580990922,
+          "abs_dev": 0.0738816580990922
+        }
+      },
+      "ranked": [
+        {
+          "key": "hf_resid",
+          "auc": 0.335010390462649
+        },
+        {
+          "key": "loss_ss",
+          "auc": 0.3653942907142076
+        },
+        {
+          "key": "contrast_ratio",
+          "auc": 0.6065952094498523
+        },
+        {
+          "key": "dloss_redeg",
+          "auc": 0.597462539647818
+        },
+        {
+          "key": "redegrade_src",
+          "auc": 0.40419993437602536
+        },
+        {
+          "key": "redegrade_t",
+          "auc": 0.4104123373072296
+        },
+        {
+          "key": "redegrade_cur",
+          "auc": 0.4118560647489883
+        },
+        {
+          "key": "dredeg_src",
+          "auc": 0.5738816580990922
+        },
+        {
+          "key": "sat_mean",
+          "auc": 0.5670786393962595
+        },
+        {
+          "key": "clip_ratio",
+          "auc": 0.5497757847533632
+        },
+        {
+          "key": "color_balance",
+          "auc": 0.45595537569725475
+        },
+        {
+          "key": "dloss_ss",
+          "auc": 0.4684895548507055
+        },
+        {
+          "key": "dout_src",
+          "auc": 0.48292682926829267
+        },
+        {
+          "key": "grad_cosine",
+          "auc": 0.4838018155966313
+        },
+        {
+          "key": "upd_step_norm",
+          "auc": 0.5118451274198841
+        },
+        {
+          "key": "dout_cur",
+          "auc": 0.48832986984578364
+        },
+        {
+          "key": "upd_l2_cur",
+          "auc": 0.5110357650661709
+        },
+        {
+          "key": "upd_l2_anchor",
+          "auc": 0.49003609318604396
+        },
+        {
+          "key": "upd_rel_anchor",
+          "auc": 0.49003609318604396
+        }
+      ],
+      "cv_auc_all_keys": 0.7136607240511867,
+      "cv_auc_top5_inside_fold": 0.7103795253199169,
+      "cv_auc_top3_inside_fold": 0.6595209449852346
+    }
+  }
+}

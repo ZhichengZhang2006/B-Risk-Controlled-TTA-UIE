@@ -101,11 +101,11 @@ def adapter_ckpt_path(cfg: Dict, source: str, backbone: str = "mambacue") -> str
     return p if os.path.exists(p) else None
 
 
-def degrader_path(cfg, source: str, backbone: str = "mambucue") -> str:
+def degrader_path(cfg, source: str, backbone: str = "mambacue") -> str:
     return os.path.join(cfg["paths"]["out_root"], f"degrader_{source}", "degrader.pth")
 
 
-def load_degrader(cfg, source: str, device: str, backbone: str = "mambucue"):
+def load_degrader(cfg, source: str, device: str, backbone: str = "mambacue"):
     """Load the SOURCE-fitted degradation model D: clean -> degraded.
 
     Returns ``(net, path)`` or ``(None, path)`` when it has not been trained yet.

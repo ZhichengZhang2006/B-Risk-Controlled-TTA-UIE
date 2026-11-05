@@ -1,0 +1,211 @@
+{
+  "cache_root": "/home/user/BRCTTA/runs/_cache",
+  "eval_size": 256,
+  "splits": {
+    "LSUI/train": {
+      "dir": "/home/user/BRCTTA/runs/_cache/LSUI_train_256_b4875bad008e46b6",
+      "key": "b4875bad008e46b6",
+      "n": 3423,
+      "eval_size": 256,
+      "bytes": 1345978624,
+      "build_seconds": 48.8,
+      "meta": "911566a6be54b0d1e5b9bbd0d1ad740cec26d2881d5bce7a4216cad5a4107b29",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "LSUI/dev": {
+      "dir": "/home/user/BRCTTA/runs/_cache/LSUI_val_256_4f359de2e89baa9e",
+      "key": "4f359de2e89baa9e",
+      "n": 428,
+      "eval_size": 256,
+      "bytes": 168296704,
+      "build_seconds": 6.1,
+      "meta": "fc39e4a65a52e0b8de9bc71c34c3cfeb70d5efad9a0f4979b44162789bb3970e",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "LSUI/test": {
+      "dir": "/home/user/BRCTTA/runs/_cache/LSUI_test_256_2bcc802623306759",
+      "key": "2bcc802623306759",
+      "n": 428,
+      "eval_size": 256,
+      "bytes": 168296704,
+      "build_seconds": 6.1,
+      "meta": "ed5a4302d5cda47352a6ed6bb11eee76194e0beef32e2202497510da78b0c1c6",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UIEB/train": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UIEB_train_256_51fa0c39c9778e3e",
+      "key": "51fa0c39c9778e3e",
+      "n": 712,
+      "eval_size": 256,
+      "bytes": 279970048,
+      "build_seconds": 34.1,
+      "meta": "80fd8cab2dcd40a8ad422ee6dcedc6d720175dfd8ec6498054bb2a08eb45586b",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UIEB/dev": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UIEB_val_256_d56c97c40fa2abf7",
+      "key": "d56c97c40fa2abf7",
+      "n": 89,
+      "eval_size": 256,
+      "bytes": 34996480,
+      "build_seconds": 5.1,
+      "meta": "5012fbb37a03cb131389044e0c1ace50111b0ac5901471410ef650f9b6ef549c",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UIEB/test": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UIEB_test_256_613b24a6b4379b81",
+      "key": "613b24a6b4379b81",
+      "n": 89,
+      "eval_size": 256,
+      "bytes": 34996480,
+      "build_seconds": 5.5,
+      "meta": "25d14618d3db984d992b29b1f28cce091fe7a718acecf95d3caeb328deb61b67",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UFO/train": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UFO_train_256_406c692099e9f992",
+      "key": "406c692099e9f992",
+      "n": 1200,
+      "eval_size": 256,
+      "bytes": 471859456,
+      "build_seconds": 16.1,
+      "meta": "eb7ab8a617a9fb667b7157067a396cdea0a98b80da0e48fab668ca6c62d6876c",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UFO/dev": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UFO_val_256_8dea7ce0c492e09e",
+      "key": "8dea7ce0c492e09e",
+      "n": 300,
+      "eval_size": 256,
+      "bytes": 117965056,
+      "build_seconds": 3.9,
+      "meta": "625cd61c9f0cce47699ea39fe7bbdf0cad7e7420e82fc070c0356d85e29822bd",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "UFO/test": {
+      "dir": "/home/user/BRCTTA/runs/_cache/UFO_test_256_1455959ed73ec39e",
+      "key": "1455959ed73ec39e",
+      "n": 120,
+      "eval_size": 256,
+      "bytes": 47186176,
+      "build_seconds": 1.6,
+      "meta": "31388cfd7bbb400894e4e4589745ad88f6ddab7d7c8088e08d745bd7f14726ee",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "EUVPd/train": {
+      "dir": "/home/user/BRCTTA/runs/_cache/EUVP-d_train_256_e22f834d5d7e8424",
+      "key": "e22f834d5d7e8424",
+      "n": 4440,
+      "eval_size": 256,
+      "bytes": 1745879296,
+      "build_seconds": 38.1,
+      "meta": "e27805ade9770576fb057052268824a40e91774ab9e9ed1210efd431456b3b23",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "EUVPd/dev": {
+      "dir": "/home/user/BRCTTA/runs/_cache/EUVP-d_val_256_398a16abc163fd02",
+      "key": "398a16abc163fd02",
+      "n": 555,
+      "eval_size": 256,
+      "bytes": 218235136,
+      "build_seconds": 4.7,
+      "meta": "4c99f5faf3b1e45c184a0fe18248269a2fe672a795fa7171ea948a567f749c58",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    },
+    "EUVPd/test": {
+      "dir": "/home/user/BRCTTA/runs/_cache/EUVP-d_test_256_6d26f5083ba92554",
+      "key": "6d26f5083ba92554",
+      "n": 555,
+      "eval_size": 256,
+      "bytes": 218235136,
+      "build_seconds": 4.8,
+      "meta": "3b9ed5a09b5aec97c272abdc3ec5b2a827e4b7068b354539edb1935690825a49",
+      "verify": {
+        "ok": true,
+        "max_abs_dx": 0.0,
+        "max_abs_dy": 0.0,
+        "n_checked": 5,
+        "mismatches": [],
+        "note": "cache is a lossless uint8 round-trip of resize_eval(); the 1e-6 tolerance absorbs only float32 representation error"
+      }
+    }
+  },
+  "total_bytes": 4851895296
+}

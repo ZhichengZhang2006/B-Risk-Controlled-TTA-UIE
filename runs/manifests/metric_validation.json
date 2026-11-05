@@ -1,0 +1,69 @@
+{
+  "A_metric_identity": {
+    "rows": [
+      {
+        "stem": "116_img_",
+        "psnr_ours": 17.817539137493156,
+        "psnr_skimage": 17.817539137493156,
+        "ssim_ours": 0.826662021612989,
+        "ssim_skimage_wang": 0.8266620216129889,
+        "ssim_skimage_default": 0.8205952615699134
+      },
+      {
+        "stem": "12290",
+        "psnr_ours": 9.856613379630382,
+        "psnr_skimage": 9.856613379630382,
+        "ssim_ours": 0.504740039307496,
+        "ssim_skimage_wang": 0.504740039307496,
+        "ssim_skimage_default": 0.4771342250340827
+      },
+      {
+        "stem": "12299",
+        "psnr_ours": 11.2919607198328,
+        "psnr_skimage": 11.2919607198328,
+        "ssim_ours": 0.5666448192950441,
+        "ssim_skimage_wang": 0.5666448192950441,
+        "ssim_skimage_default": 0.5448209665471014
+      },
+      {
+        "stem": "12324",
+        "psnr_ours": 11.38915048229142,
+        "psnr_skimage": 11.38915048229142,
+        "ssim_ours": 0.5984121446310753,
+        "ssim_skimage_wang": 0.5984121446310752,
+        "ssim_skimage_default": 0.5790407800404646
+      }
+    ],
+    "max_abs_dPSNR": 0.0,
+    "max_abs_dSSIM": 1.1102230246251565e-16,
+    "max_abs_dSSIM_vs_skimage_default": 0.0276058142734133,
+    "ok": true,
+    "note": "PSNR must agree exactly (same formula). SSIM is validated against skimage's Wang variant (gaussian_weights=True, sigma=1.5, use_sample_covariance=False, win 11), which is the same estimator; agreement to 1e-6 means the implementation is right. The default uniform-7x7 SSIM differs by design and is reported only to show that difference is a definition gap, not a bug."
+  },
+  "B_range_consistency": {
+    "mse": 0.00871857684805215,
+    "psnr": 20.59554400099465,
+    "psnr_from_mse": 20.59554400099465,
+    "abs_diff": 0.0,
+    "ok": true,
+    "psnr_identical": 99.0,
+    "psnr_on_identical_capped": true
+  },
+  "C_protocol_replay": {
+    "split": "test",
+    "our_protocol": {
+      "psnr": 24.354176960407642,
+      "ssim": 0.9227984704422398,
+      "mse": 0.006092095577033792,
+      "n": 89
+    },
+    "upstream_recorded": {
+      "psnr": 24.4629,
+      "ssim": 0.9224,
+      "mse": 392.46
+    },
+    "dPSNR": -0.10872303959235907,
+    "dSSIM": 0.00039847044223983996,
+    "same_protocol": true
+  }
+}

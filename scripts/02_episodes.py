@@ -96,6 +96,7 @@ def main() -> int:
         consistency=cfg["adapter"]["consistency"],
         memory=cfg["adapter"]["memory"],
         reset_every=args.episode_len,
+        seed=int(stream_cfg["seed"]),
     )
     prior_path = os.path.join(cfg["paths"]["out_root"], "manifests", f"prior_{stream_cfg['source']}.json")
     prior = load_prior(prior_path) if os.path.exists(prior_path) else None
